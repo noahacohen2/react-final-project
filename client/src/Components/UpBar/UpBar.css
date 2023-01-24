@@ -1,0 +1,25 @@
+#up-bar {
+  background-color: white;
+  border-color: #f2f2f2;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+}
+
+#site-name {
+  color: #f01659;
+  font-weight: bold;
+  margin-left: 46px;
+  font-size: 25px;
+}
+
+#up-bar-profile-btn {
+  color: black;
+  border-color: black;
+  margin-right: 20px;
+}
+
+#up-bar-logout-btn {
+  color: black;
+  border-color: black;
+  margin-right: 70px;
+}

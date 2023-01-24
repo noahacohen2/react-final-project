@@ -1,0 +1,14 @@
+#musicals-page {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+#center-content {
+  margin-left: 70px;
+  margin-right: 70px;
+}
+
+#musical-page-title {
+  margin-left: 70px;
+}
