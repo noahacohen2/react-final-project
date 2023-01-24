@@ -4,7 +4,6 @@
   "description": "final project server",
   "main": "index.js",
   "scripts": {
-    "test": "test",
     "start": "node index.js"
   },
   "author": "noa and daniel",

@@ -1,0 +1,18 @@
+.logInCard {
+    width: 950px;
+    height: 500px;
+    margin: auto;
+}
+
+.logIn {
+    display: flex;
+    justify-content: center;
+    background-color: #F2F2F2;
+    height: 100%
+}
+
+.cardContent {
+    display: flex;
+    height: 100%;
+    padding: 0px !important;
+}

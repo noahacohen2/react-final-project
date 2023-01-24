@@ -1,0 +1,76 @@
+.Form {
+    width: 600px;
+    height: 100%;
+}
+
+.buttonImg {
+    width: 25px;
+    height: 25px;
+    margin: auto;
+}
+
+.signWithBtn {
+    border: 1.5px solid #D9D9D9;
+    width: 170px;
+    height: 35px;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    margin-right: 15px;
+    margin-left: 15px;
+    margin-top: 15px;
+    cursor: pointer;
+    text-align: center;
+    line-height: 35px;
+    padding-right: 5px;
+}
+
+.btnRow {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.formTitle {
+    font-weight: 700;
+    font-size: 52px;
+    text-align: center;
+    padding-top: 50px;
+}
+
+.textFieldContainer {
+    width: 340px;
+}
+
+.cardContainer {
+    min-height: 164px !important;
+    height: 164px !important;
+    margin-top: 20px;
+
+}
+
+.centerElements {
+    display: flex;
+    justify-content: center;
+}
+
+.formTextField {
+    margin-top: 15px !important;
+}
+
+.submitBtn {
+    margin-top: 25px !important;
+    border-radius: 50px !important;
+    background-color: #EF1659 !important;
+    color: white;
+    width: 152px !important;
+    font-weight: 700 !important;
+    font-size: 18px !important;
+    height: 38px !important;
+}
+
+.errorMsg {
+    width: 340px;
+    margin-top: 5px;
+    color: #EF1659;
+}
