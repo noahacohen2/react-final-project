@@ -1,9 +1,9 @@
 import * as React from "react";
-import MusicalCard from "./../../Components/MusicalCard/MusicalCard";
+import MusicalCard from "../../Components/MusicalCard/MusicalCard";
 import Grid from "@mui/material/Grid";
-import "./MusicalPage.css";
+import "./MusicalsPage.css";
 
-const MusicalPage = () => {
+const MusicalsPage = () => {
   const tempData = [
     <MusicalCard />,
     <MusicalCard />,
@@ -29,7 +29,7 @@ const MusicalPage = () => {
         <h1>Musicals in London and New York You Can't Miss</h1>
         <div>Find the best musical for you</div>
       </Grid>
-      <div id="musical-page">
+      <div id="musicals-page">
         <Grid
           container
           direction="row"
@@ -44,4 +44,4 @@ const MusicalPage = () => {
   );
 };
 
-export default MusicalPage;
+export default MusicalsPage;
