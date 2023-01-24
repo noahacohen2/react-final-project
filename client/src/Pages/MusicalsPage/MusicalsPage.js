@@ -25,6 +25,7 @@ const MusicalsPage = () => {
         direction="column"
         justifyContent="flex-start"
         alignItems="flex-start"
+        id="musical-page-title"
       >
         <h1>Musicals in London and New York You Can't Miss</h1>
         <div>Find the best musical for you</div>
@@ -33,7 +34,7 @@ const MusicalsPage = () => {
         <Grid
           container
           direction="row"
-          justifyContent="flex-start"
+          justifyContent="center"
           alignItems="center"
           id="center-content"
         >

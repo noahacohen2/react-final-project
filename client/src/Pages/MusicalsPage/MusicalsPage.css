@@ -5,5 +5,10 @@
 }
 
 #center-content {
-  width: 1050px;
+  margin-left: 70px;
+  margin-right: 70px;
+}
+
+#musical-page-title {
+  margin-left: 70px;
 }
