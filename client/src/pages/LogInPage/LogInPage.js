@@ -1,7 +1,7 @@
 import "./LogInPage.css";
 import { useState } from 'react';
-import UserAuthForm from "../../components/UserAuthForm/UserAuthForm";
-import AuthSideCard from "../../components/AuthSideCard/AuthSideCard";
+import UserAuthForm from "../../Components/UserAuthForm/UserAuthForm";
+import AuthSideCard from "../../Components/AuthSideCard/AuthSideCard";
 import CardContent from '@mui/material/CardContent';
 import Card from '@mui/material/Card';
 

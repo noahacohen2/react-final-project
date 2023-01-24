@@ -15,9 +15,9 @@ export default {
                 headers: {
                     'Content-Type': 'application/json'
                 }
-            }).then((res) => {
+            }).then(async (res) => {
                 if (res.ok) {
-                    return res.json();
+                    return await res.json();
                 } else {
                     throw new Error('signupError');
                 }
@@ -25,7 +25,7 @@ export default {
     },
 
     async LogIn(userDetails) {
-        await fetch("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=" + API_KEY,
+        return await fetch("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=" + API_KEY,
             {
                 method: 'POST',
                 body: JSON.stringify({
@@ -36,9 +36,9 @@ export default {
                 headers: {
                     'Content-Type': 'application/json'
                 }
-            }).then((res) => {
+            }).then(async (res) => {
                 if (res.ok) {
-                    return res.json();
+                    return await res.json();
                 } else {
                     throw new Error('loginError');
                 }

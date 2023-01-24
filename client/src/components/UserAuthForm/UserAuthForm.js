@@ -1,15 +1,17 @@
 import "./UserAuthForm.css";
-import { useRef, useState } from 'react';
+import { useRef, useContext } from 'react';
+import AppContext from "../../Context/Context";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import authService from "../../services/auth"
-
+import authService from "../../Services/auth"
+import { useNavigate } from 'react-router-dom';
 
 const UserAuthForm = ({ isLogin, message, setMessage }) => {
-    let facebookImg = require("../../assets/facebook.png");
-    let googleImg = require("../../assets/search.png");
+    let googleImg = require("../../Assets/search.png");
     const emailInputRef = useRef();
     const passwordInputRef = useRef();
+    const navigate = useNavigate();
+    const [userID, setUserID] = useContext(AppContext).userID;
 
     const clickHandler = () => {
         const enteredEmail = emailInputRef.current.value;
@@ -18,13 +20,14 @@ const UserAuthForm = ({ isLogin, message, setMessage }) => {
 
         if (isLogin) {
             authService.LogIn({ email: enteredEmail, password: enteredPassword }).then(data => {
-                console.log("yay")
+                setUserID(data.localId)
+                navigate('/AllMusicals', { replace: true });
             }).catch(err => {
                 setMessage("We couldn't find your account")
             })
         } else {
             authService.SignUp({ email: enteredEmail, password: enteredPassword }).then(data => {
-                console.log("yay")
+                navigate('/AllMusicals', { replace: true });
             }).catch(err => {
                 setMessage("Try another email, note that the email must be a valid email")
             })
