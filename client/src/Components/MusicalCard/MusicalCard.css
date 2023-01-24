@@ -1,0 +1,13 @@
+#musical-card {
+  width: 200px;
+  margin: 30px;
+}
+
+#musical-card-img {
+  width: inherit;
+}
+
+#musical-card-title {
+  font-size: medium;
+  font-weight: bold;
+}

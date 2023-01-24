@@ -1,0 +1,9 @@
+#musical-page {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+#center-content {
+  width: 1050px;
+}
