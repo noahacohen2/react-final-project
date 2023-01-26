@@ -3,13 +3,14 @@ import MusicalCard from "../../Components/MusicalCard/MusicalCard";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import AppContext from "../../Context/Context.js";
 import musicalsService from "../../services/musicals.js";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import "./MusicalsPage.css";
 
 const MusicalsPage = () => {
   const [musicals, setMusicals] = useContext(AppContext).musicals;
+  const [searchValue, setSearchValue] = useState("");
 
   useEffect(() => {
     const getMusicals = () => {
@@ -25,6 +26,23 @@ const MusicalsPage = () => {
 
     getMusicals();
   }, []);
+
+  const Musicals = () => {
+    const musicalsBySearch = musicals.filter((musical) =>
+      musical.Name.toLowerCase().includes(searchValue.toLowerCase())
+    );
+
+    return musicalsBySearch?.map((musical, index) => (
+      <MusicalCard
+        key={index}
+        minimumPrice={musical.EventMinimumPrice}
+        mainImageUrl={musical.MainImageUrl}
+        minimumAge={musical.MinimumAge}
+        name={musical.Name}
+        city={musical.City}
+      />
+    ));
+  };
 
   return (
     <>
@@ -49,6 +67,7 @@ const MusicalsPage = () => {
                 color="primary"
                 variant="outlined"
                 label="Search"
+                onChange={(event) => setSearchValue(event.target.value)}
               />
             </div>
             <FilterAltOutlinedIcon id="filter-icon" fontSize="large" />
@@ -65,17 +84,7 @@ const MusicalsPage = () => {
           alignItems="center"
           id="center-content"
         >
-          {musicals?.length != 0 &&
-            musicals?.map((musical, index) => (
-              <MusicalCard
-                key={index}
-                minimumPrice={musical.EventMinimumPrice}
-                mainImageUrl={musical.MainImageUrl}
-                minimumAge={musical.MinimumAge}
-                name={musical.Name}
-                city={musical.City}
-              />
-            ))}
+          {musicals?.length != 0 && Musicals()}
         </Grid>
       </div>
     </>
