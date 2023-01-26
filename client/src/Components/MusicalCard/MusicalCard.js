@@ -1,14 +1,13 @@
 import * as React from "react";
 import "./MusicalCard.css";
 
-const MusicalCard = () => {
+const MusicalCard = ({ minimumPrice, mainImageUrl, minimumAge, name }) => {
   return (
     <div id="musical-card">
-      <img
-        id="musical-card-img"
-        src="https://m.media-amazon.com/images/M/MV5BMTQ1MjQwMTE5OF5BMl5BanBnXkFtZTgwNjk3MTcyMDE@._V1_.jpg"
-      />
-      <div id="musical-card-title">Frozen the Musical</div>
+      <img id="musical-card-img" src={mainImageUrl} />
+      <div id="musical-card-title">{name}</div>
+      <div>Min Price: {minimumPrice}</div>
+      <div>Min Age: {minimumAge}</div>
     </div>
   );
 };

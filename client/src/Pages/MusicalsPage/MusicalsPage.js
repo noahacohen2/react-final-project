@@ -1,22 +1,28 @@
 import * as React from "react";
 import MusicalCard from "../../Components/MusicalCard/MusicalCard";
+import AppContext from "../../Context/Context.js";
+import musicalsService from "../../services/musicals.js";
+import { useContext, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import "./MusicalsPage.css";
 
 const MusicalsPage = () => {
-  const tempData = [
-    <MusicalCard />,
-    <MusicalCard />,
-    <MusicalCard />,
-    <MusicalCard />,
-    <MusicalCard />,
-    <MusicalCard />,
-    <MusicalCard />,
-    <MusicalCard />,
-    <MusicalCard />,
-    <MusicalCard />,
-    <MusicalCard />,
-  ];
+  const [musicals, setMusicals] = useContext(AppContext).musicals;
+
+  useEffect(() => {
+    const getMusicals = () => {
+      musicalsService
+        .getMusicals()
+        .then((res) => {
+          setMusicals(res.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+
+    getMusicals();
+  }, []);
 
   return (
     <>
@@ -38,7 +44,16 @@ const MusicalsPage = () => {
           alignItems="center"
           id="center-content"
         >
-          {tempData}
+          {musicals?.length != 0 &&
+            musicals?.map((musical, index) => (
+              <MusicalCard
+                key={index}
+                minimumPrice={musical.EventMinimumPrice}
+                mainImageUrl={musical.MainImageUrl}
+                minimumAge={musical.MinimumAge}
+                name={musical.Name}
+              />
+            ))}
         </Grid>
       </div>
     </>

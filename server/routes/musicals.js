@@ -5,7 +5,7 @@ const Musical = require("../models/musical.js");
 router.get("/", (req, res) => {
   Musical.find({})
     .then((musicals) => {
-      res.end(JSON.stringify(musicals));
+      return res.end(JSON.stringify(musicals));
     })
     .catch((e) => {
       console.log(e);
