@@ -1,0 +1,7 @@
+.profileCard {
+    width: 950px;
+    height: 500px;
+    margin: auto;
+    margin-top: 70px !important;
+    display: flex;
+}

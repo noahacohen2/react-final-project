@@ -3,11 +3,13 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LogInPage from "./Pages/LogInPage/LogInPage";
 import MusicalsPage from "./Pages/MusicalsPage/MusicalsPage";
 import MusicalPage from "./Pages/MusicalPage/MusicalPage";
-import UpBar from "./Components/UpBar/UpBar";
-import { useContext } from "react";
-import AppContext from "./Context/Context";
+import ProfilePage from "./Pages/ProfilePage/ProfilePage";
 
 const router = createBrowserRouter([
+  {
+    path: "/profile",
+    element: <ProfilePage />,
+  },
   {
     path: "/AllMusicals",
     element: <MusicalsPage />,
@@ -23,11 +25,8 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  const [userID, setUserID] = useContext(AppContext).userID;
-
   return (
     <>
-      {userID && <UpBar></UpBar>}
       <RouterProvider router={router}></RouterProvider>
     </>
   );
