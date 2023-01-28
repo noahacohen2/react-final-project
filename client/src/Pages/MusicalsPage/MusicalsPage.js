@@ -2,7 +2,7 @@ import * as React from "react";
 import MusicalCard from "../../Components/MusicalCard/MusicalCard";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import AppContext from "../../Context/Context.js";
-import musicalsService from "../../Services/musicals.js";
+import musicalsService from "../../services/musicals";
 import { useContext, useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
@@ -94,7 +94,7 @@ const MusicalsPage = () => {
 
   return (
     <>
-      {user && (<UpBar></UpBar>)}
+      {user && <UpBar />}
       <FilterDialog
         cities={cities}
         minAge={minAge}
