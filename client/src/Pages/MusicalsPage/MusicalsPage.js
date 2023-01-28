@@ -8,8 +8,10 @@ import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import "./MusicalsPage.css";
 import FilterDialog from "../../Components/FilterDialog/FilterDialog.js";
+import UpBar from "../../Components/UpBar/UpBar";
 
 const MusicalsPage = () => {
+  const [user, setUser] = useContext(AppContext).user;
   const [musicals, setMusicals] = useContext(AppContext).musicals;
   const [searchValue, setSearchValue] = useState("");
   const [filterArray, setFilterArray] = useState([]);
@@ -99,6 +101,7 @@ const MusicalsPage = () => {
 
   return (
     <>
+      {user && (<UpBar></UpBar>)}
       <FilterDialog
         cities={cities}
         minAge={minAge}
