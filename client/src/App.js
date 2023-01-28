@@ -2,16 +2,21 @@ import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LogInPage from "./Pages/LogInPage/LogInPage";
 import MusicalsPage from "./Pages/MusicalsPage/MusicalsPage";
+import MusicalPage from "./Pages/MusicalPage/MusicalPage";
 import ProfilePage from "./Pages/ProfilePage/ProfilePage";
 
 const router = createBrowserRouter([
   {
     path: "/profile",
-    element: <ProfilePage />
+    element: <ProfilePage />,
   },
   {
     path: "/AllMusicals",
     element: <MusicalsPage />,
+  },
+  {
+    path: "/Musical",
+    element: <MusicalPage />,
   },
   {
     path: "/",
@@ -20,7 +25,6 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-
   return (
     <>
       <RouterProvider router={router}></RouterProvider>

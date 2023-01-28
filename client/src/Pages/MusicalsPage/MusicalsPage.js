@@ -2,7 +2,7 @@ import * as React from "react";
 import MusicalCard from "../../Components/MusicalCard/MusicalCard";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import AppContext from "../../Context/Context.js";
-import musicalsService from "../../Services/musicals.js";
+import musicalsService from "../../services/musicals";
 import { useContext, useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
@@ -88,20 +88,13 @@ const MusicalsPage = () => {
     });
 
     return musicalsBySearch?.map((musical, index) => (
-      <MusicalCard
-        key={index}
-        minimumPrice={musical.EventMinimumPrice}
-        mainImageUrl={musical.MainImageUrl}
-        minimumAge={musical.MinimumAge}
-        name={musical.Name}
-        city={musical.City}
-      />
+      <MusicalCard key={index} musical={musical} />
     ));
   };
 
   return (
     <>
-      {user && (<UpBar></UpBar>)}
+      {user && <UpBar />}
       <FilterDialog
         cities={cities}
         minAge={minAge}
