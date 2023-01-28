@@ -2,11 +2,11 @@ import AppContext from "./Context";
 import { useState } from "react";
 
 const ConetxtProvider = ({ children }) => {
-  const [userID, setUserID] = useState(undefined);
+  const [user, setUser] = useState(undefined);
   const [musicals, setMusicals] = useState([]);
 
   const contextData = {
-    userID: [userID, setUserID],
+    user: [user, setUser],
     musicals: [musicals, setMusicals],
   };
 

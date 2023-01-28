@@ -1,4 +1,4 @@
-import api from "../config/api.js";
+import api from "../Config/api.js";
 
 export default {
   async getMusicals() {
