@@ -86,14 +86,7 @@ const MusicalsPage = () => {
     });
 
     return musicalsBySearch?.map((musical, index) => (
-      <MusicalCard
-        key={index}
-        minimumPrice={musical.EventMinimumPrice}
-        mainImageUrl={musical.MainImageUrl}
-        minimumAge={musical.MinimumAge}
-        name={musical.Name}
-        city={musical.City}
-      />
+      <MusicalCard key={index} musical={musical} />
     ));
   };
 
