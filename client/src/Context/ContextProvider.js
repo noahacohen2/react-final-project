@@ -1,19 +1,18 @@
 import AppContext from "./Context";
 import { useState } from "react";
 
+const ConetxtProvider = ({ children }) => {
+  const [userID, setUserID] = useState(undefined);
+  const [musicals, setMusicals] = useState([]);
 
-function ConetxtProvider({ children }) {
-    const [userID, setUserID] = useState(undefined)
+  const contextData = {
+    userID: [userID, setUserID],
+    musicals: [musicals, setMusicals],
+  };
 
-    const contextData = {
-        'userID': [userID, setUserID],
-    };
-
-    return (
-        <AppContext.Provider value={contextData}>
-            {children}
-        </AppContext.Provider>
-    );
-}
+  return (
+    <AppContext.Provider value={contextData}>{children}</AppContext.Provider>
+  );
+};
 
 export default ConetxtProvider;

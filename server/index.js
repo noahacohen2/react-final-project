@@ -5,9 +5,11 @@ const cors = require("cors");
 const musicals = require("./routes/musicals");
 const reviews = require("./routes/reviews");
 const venues = require("./routes/venues");
+const Musical = require("./models/musical.js");
 
 const corsOptions = {
-  origin: "*",
+  origin: "http://localhost:3001",
+  // origin: "*",
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
 };

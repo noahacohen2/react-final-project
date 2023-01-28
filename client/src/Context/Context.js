@@ -1,6 +1,5 @@
-import { useState, createContext } from "react";
+import { createContext } from "react";
 
-const AppContext = createContext(undefined);
-const AppDispatchContext = createContext(undefined);
+const AppContext = createContext({});
 
 export default AppContext;

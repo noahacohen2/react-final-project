@@ -37,6 +37,10 @@ const musicalSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
+  City: {
+    type: String,
+    require: true,
+  },
 });
 
 const Musical = mongoose.model("musicals", musicalSchema);
