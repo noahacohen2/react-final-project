@@ -46,23 +46,39 @@ const MusicalsPage = () => {
   };
 
   const checkFilterParam = (filterBy, musical) => {
+    let citiesFilter = [];
+    let ageFilter = [];
+    let priceFilter = [];
+
+    filterBy.map((filterCategory) => {
+      if (Object.keys(filterCategory) == "city") {
+        citiesFilter.push(filterCategory.city);
+        return;
+      }
+      if (Object.keys(filterCategory) == "age") {
+        ageFilter.push(filterCategory.age);
+        return;
+      }
+      if (Object.keys(filterCategory) == "price") {
+        priceFilter.push(filterCategory.price);
+        return;
+      }
+    });
+
     return (
-      (Object.keys(filterBy) == "city" &&
-        Object.values(filterBy) == musical.City) ||
-      (Object.keys(filterBy) == "age" &&
-        Object.values(filterBy) == musical.MinimumAge) ||
-      (Object.keys(filterBy) == "price" &&
-        Object.values(filterBy) == musical.EventMinimumPrice)
+      (citiesFilter.length == 0 ||
+        citiesFilter.find((city) => city == musical.City)) &&
+      (ageFilter.length == 0 ||
+        ageFilter.find((age) => age <= musical.MinimumAge)) &&
+      (priceFilter.length == 0 ||
+        priceFilter.find((price) => price <= musical.EventMinimumPrice))
     );
   };
 
   const Musicals = () => {
     const musicalsBySearch = musicals.filter((musical) => {
       if (
-        (filterArray.length != 0 &&
-          filterArray.find((filterBy) =>
-            checkFilterParam(filterBy, musical)
-          )) ||
+        (filterArray.length != 0 && checkFilterParam(filterArray, musical)) ||
         filterArray.length == 0
       )
         if (musical.Name.toLowerCase().includes(searchValue.toLowerCase()))
