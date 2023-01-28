@@ -1,0 +1,51 @@
+.filter-options-btn {
+  border-radius: 50px !important;
+  /* width: 152px !important; */
+  font-weight: 500 !important;
+  font-size: 18px !important;
+  height: 38px !important;
+  margin-right: 8px !important;
+}
+
+.clicked {
+  background-color: #ef1659 !important;
+  color: white !important;
+}
+
+.unclicked {
+  background-color: white !important;
+  color: #ef1659 !important;
+  border-color: #ef1659 !important;
+  /* border-top-width: medium !important; */
+}
+#dialog-title {
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+#x-icon {
+  margin-top: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.filter-category {
+  margin-left: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#filter-btn {
+  border-radius: 50px !important;
+  background-color: #ef1659 !important;
+  color: white !important;
+  width: 130px !important;
+  font-weight: 700 !important;
+  font-size: 20px !important;
+  height: 38px !important;
+  margin-right: 20px !important;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}

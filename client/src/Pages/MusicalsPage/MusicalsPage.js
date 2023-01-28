@@ -7,10 +7,17 @@ import { useContext, useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import "./MusicalsPage.css";
+import FilterDialog from "../../Components/FilterDialog/FilterDialog.js";
 
 const MusicalsPage = () => {
   const [musicals, setMusicals] = useContext(AppContext).musicals;
   const [searchValue, setSearchValue] = useState("");
+  const [filterArray, setFilterArray] = useState([]);
+  const [cities, setCities] = useState();
+  const [minAge, setMinAge] = useState();
+  const [minPrice, setMinPrice] = useState();
+
+  const [isFiltePopupOpen, setIsFiltePopupOpen] = useState(false);
 
   useEffect(() => {
     const getMusicals = () => {
@@ -18,6 +25,9 @@ const MusicalsPage = () => {
         .getMusicals()
         .then((res) => {
           setMusicals(res.data);
+          setFilterOptions(setCities, "City", res.data);
+          setFilterOptions(setMinAge, "MinimumAge", res.data);
+          setFilterOptions(setMinPrice, "EventMinimumPrice", res.data);
         })
         .catch((error) => {
           console.log(error);
@@ -27,10 +37,37 @@ const MusicalsPage = () => {
     getMusicals();
   }, []);
 
-  const Musicals = () => {
-    const musicalsBySearch = musicals.filter((musical) =>
-      musical.Name.toLowerCase().includes(searchValue.toLowerCase())
+  const setFilterOptions = (setFunc, Feild, musicals) => {
+    setFunc([...new Set(musicals.map((musical) => musical[Feild]))]);
+  };
+
+  const openFilterPopup = () => {
+    setIsFiltePopupOpen(true);
+  };
+
+  const checkFilterParam = (filterBy, musical) => {
+    return (
+      (Object.keys(filterBy) == "city" &&
+        Object.values(filterBy) == musical.City) ||
+      (Object.keys(filterBy) == "age" &&
+        Object.values(filterBy) == musical.MinimumAge) ||
+      (Object.keys(filterBy) == "price" &&
+        Object.values(filterBy) == musical.EventMinimumPrice)
     );
+  };
+
+  const Musicals = () => {
+    const musicalsBySearch = musicals.filter((musical) => {
+      if (
+        (filterArray.length != 0 &&
+          filterArray.find((filterBy) =>
+            checkFilterParam(filterBy, musical)
+          )) ||
+        filterArray.length == 0
+      )
+        if (musical.Name.toLowerCase().includes(searchValue.toLowerCase()))
+          return musical;
+    });
 
     return musicalsBySearch?.map((musical, index) => (
       <MusicalCard
@@ -46,6 +83,16 @@ const MusicalsPage = () => {
 
   return (
     <>
+      <FilterDialog
+        cities={cities}
+        minAge={minAge}
+        minPrice={minPrice}
+        isOpen={isFiltePopupOpen}
+        closeDialog={() => {
+          setIsFiltePopupOpen(false);
+        }}
+        saveFilterOptions={setFilterArray}
+      />
       <Grid
         container
         direction="column"
@@ -70,7 +117,11 @@ const MusicalsPage = () => {
                 onChange={(event) => setSearchValue(event.target.value)}
               />
             </div>
-            <FilterAltOutlinedIcon id="filter-icon" fontSize="large" />
+            <FilterAltOutlinedIcon
+              id="filter-icon"
+              fontSize="large"
+              onClick={openFilterPopup}
+            />
           </Grid>
         </div>
         <h1>Musicals in London and New York You Can't Miss</h1>
