@@ -18,9 +18,9 @@ const Reviews = ({ reviews }) => {
             <>
               <ListItem key={index}>
                 <ListItemAvatar>
-                  <Avatar src={userAvatar}></Avatar>
+                  <Avatar src={userAvatar} />
                 </ListItemAvatar>
-                <ReviewRow review={review}></ReviewRow>
+                <ReviewRow review={review} />
               </ListItem>
               <Divider variant="inset" />
             </>

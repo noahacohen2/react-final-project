@@ -1,0 +1,33 @@
+.musical-details-card {
+  width: 950px;
+  height: 500px;
+  margin: auto;
+  margin-top: 70px !important;
+  display: flex;
+}
+
+.musical-details {
+  margin-left: 20px;
+  margin-top: 15px;
+  max-width: 400px;
+}
+
+#musical-title {
+  font-weight: 700;
+  font-size: 24px;
+  margin-top: 20px;
+}
+
+.musical-text {
+  margin-top: 5px;
+  max-width: 300px;
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+#musical-img {
+  width: 150px;
+  height: 150px;
+  margin-top: 20px;
+  margin-left: 20px;
+}
