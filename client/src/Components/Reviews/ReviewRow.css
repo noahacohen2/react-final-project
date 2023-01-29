@@ -22,3 +22,7 @@
 .item-text-primary {
     display: flex;
 }
+
+.secondary-action {
+    display: grid !important;
+}

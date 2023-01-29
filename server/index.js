@@ -31,6 +31,7 @@ mongoose
     });
 
 app.use("/musicals", musicals);
+app.use("/reviews", reviews)
 
 app.listen(3000, () => {
     console.log("listening in port 3000");
