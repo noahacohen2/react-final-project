@@ -31,7 +31,11 @@ mongoose
   });
 
 app.use("/musicals", musicals);
+<<<<<<< HEAD
 app.use("/reviews", reviews);
+=======
+app.use("/reviews", reviews)
+>>>>>>> delete review operation
 
 app.listen(3000, () => {
   console.log("listening in port 3000");

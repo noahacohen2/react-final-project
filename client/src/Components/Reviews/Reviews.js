@@ -58,7 +58,7 @@ const Reviews = ({ reviews, setReviews, showActions }) => {
               </ListItem>
               <Divider variant="inset" />
             </>
-          );
+          )
         })}
       </List>
     </div>
