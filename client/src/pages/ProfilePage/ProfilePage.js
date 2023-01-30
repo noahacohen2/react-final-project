@@ -5,80 +5,56 @@ import Card from "@mui/material/Card";
 import Divider from "@mui/material/Divider";
 import Reviews from "../../Components/Reviews/Reviews";
 import ChangePassword from "../../Components/ChangePassword/ChangePassword";
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
+import reviewsService from "../../Services/reviews.js";
+import AppContext from "../../Context/Context";
 
 const ProfilePage = () => {
   let [showReviews, setShowReviews] = useState(true);
-  const userReviews = [
-    {
-      seat: "18A",
-      rate: 3,
-      musical: "Frozen",
-      review:
-        "Seat A19 is the end seat to an aisle so good for people that need the extra room to the right for leg stretch etc.rnExcellent views from A19 and A20",
-    },
-    {
-      seat: "18A",
-      rate: 5,
-      musical: "Frozen",
-      review:
-        "Seat A19 is the end seat to an aisle so good for people that need the extra room to the right for leg stretch etc.rnExcellent views from A19 and A20",
-    },
-    {
-      seat: "18A",
-      rate: 1,
-      musical: "Frozen",
-      review:
-        "Seat A19 is the end seat to an aisle so good for people that need the extra room to the right for leg stretch etc.rnExcellent views from A19 and A20",
-    },
-    {
-      seat: "18A",
-      rate: 4,
-      musical: "Frozen",
-      review:
-        "Seat A19 is the end seat to an aisle so good for people that need the extra room to the right for leg stretch etc.rnExcellent views from A19 and A20",
-    },
-    {
-      seat: "18A",
-      rate: 3,
-      musical: "Frozen",
-      review:
-        "Seat A19 is the end seat to an aisle so good for people that need the extra room to the right for leg stretch etc.rnExcellent views from A19 and A20",
-    },
-    {
-      seat: "18A",
-      rate: 2,
-      musical: "Frozen",
-      review:
-        "Seat A19 is the end seat to an aisle so good for people that need the extra room to the right for leg stretch etc.rnExcellent views from A19 and A20",
-    },
-    {
-      seat: "18A",
-      rate: 2,
-      musical: "Frozen",
-      review:
-        "Seat A19 is the end seat to an aisle so good for people that need the extra room to the right for leg stretch etc.rnExcellent views from A19 and A20",
-    },
-  ];
+  let [userReviews, setUserReviews] = useState([]);
+  const [user, setUser] = useContext(AppContext).user;
 
   const changeViewState = () => {
     setShowReviews(!showReviews);
   };
+
+  useEffect(() => {
+    const getReviews = (userID) => {
+      reviewsService
+        .getUserReviews(userID)
+        .then((res) => {
+          setUserReviews(res.data);
+          console.log(res.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+
+    getReviews(user.localId);
+  }, []);
+
   return (
-    <>
-      <UpBar />
+    <div>
+      <UpBar></UpBar>
       <Card className="profileCard">
         <UserDetails
           onChangePassowrdClick={changeViewState}
           showBtn={showReviews}
-        />
+        ></UserDetails>
         <Divider orientation="vertical" flexItem></Divider>
-        {showReviews && <Reviews reviews={userReviews} />}
+        {showReviews && (
+          <Reviews
+            reviews={userReviews}
+            setReviews={setUserReviews}
+            showActions={true}
+          ></Reviews>
+        )}
         {!showReviews && (
           <ChangePassword changeViewState={changeViewState}></ChangePassword>
         )}
       </Card>
-    </>
+    </div>
   );
 };
 

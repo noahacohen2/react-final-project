@@ -12,7 +12,7 @@ import ConfirmationNumberOutlinedIcon from "@mui/icons-material/ConfirmationNumb
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import MusicalRatingChart from "../../Components/MusicalRatingChart/MusicalRatingChart";
 import Reviews from "../../Components/Reviews/Reviews";
-import reviewsService from "../../services/reviews";
+import reviewsService from "../../Services/reviews";
 
 const MusicalPage = () => {
   const [currentMusicalId, setCurrentMusicalId] =

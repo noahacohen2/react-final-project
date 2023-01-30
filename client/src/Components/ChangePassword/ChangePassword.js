@@ -3,7 +3,7 @@ import { useRef, useContext, useState } from "react";
 import AppContext from "../../Context/Context";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import authService from "../../services/auth";
+import authService from "../../Services/auth";
 
 const ChangePassword = ({ changeViewState }) => {
   const passwordInputRef = useRef();
@@ -11,6 +11,10 @@ const ChangePassword = ({ changeViewState }) => {
 
   const [user, setUser] = useContext(AppContext).user;
   const [message, setMessage] = useState("");
+
+  const onCancelClickHandler = () => {
+    changeViewState();
+  };
 
   const saveHandler = () => {
     const enteredPassword = passwordInputRef.current.value;
@@ -62,7 +66,15 @@ const ChangePassword = ({ changeViewState }) => {
       </div>
       <div className="centerElements">
         <Button
-          className="passwordSubmitBtn"
+          className="passowrd-cancel-btn"
+          variant="outlined"
+          disableElevation
+          onClick={onCancelClickHandler}
+        >
+          cancel
+        </Button>
+        <Button
+          className="password-submit-btn"
           variant="contained"
           disableElevation
           onClick={saveHandler}
