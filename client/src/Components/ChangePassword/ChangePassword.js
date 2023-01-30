@@ -39,29 +39,17 @@ const ChangePassword = ({ changeViewState }) => {
   };
 
   return (
-    <div className="Form">
+    <div className="Form" >
       <div className="passwordFormTitle">Change password</div>
       <div className="cardContainer">
         <div className="centerElements">
           <div className="textFieldContainer">
-            <TextField
-              label="Password"
-              className="formTextField"
-              size="small"
-              fullWidth
-              inputRef={passwordInputRef}
-            ></TextField>
-            <TextField
-              label="Confirm password"
-              className="formTextField"
-              size="small"
-              fullWidth
-              inputRef={confirmInputRef}
-            ></TextField>
+            <TextField label="Password" className="formTextField" size="small" fullWidth inputRef={passwordInputRef}></TextField>
+            <TextField label="Confirm password" className="formTextField" size="small" fullWidth inputRef={confirmInputRef}></TextField>
           </div>
         </div>
         <div className="centerElements">
-          {message != "" && <div className="errorMsg">{message}</div>}
+          {message != '' && (<div className="errorMsg">{message}</div>)}
         </div>
       </div>
       <div className="centerElements">
@@ -82,7 +70,7 @@ const ChangePassword = ({ changeViewState }) => {
           Save
         </Button>
       </div>
-    </div>
+    </div >
   );
 };
 

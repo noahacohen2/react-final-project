@@ -34,20 +34,22 @@ const Reviews = ({ reviews, setReviews, showActions }) => {
                 key={index}
                 secondaryAction={
                   <>
-                    {showActions && (
-                      <div className="secondary-action">
-                        <IconButton edge="end" aria-label="update">
-                          <EditIcon />
-                        </IconButton>
-                        <IconButton
-                          edge="end"
-                          aria-label="delete"
-                          onClick={() => handleDeleteReview(review)}
-                        >
-                          <DeleteIcon />
-                        </IconButton>
-                      </div>
-                    )}
+                    {
+                      showActions && (
+                        <div className="secondary-action">
+                          <IconButton edge="end" aria-label="update">
+                            <EditIcon />
+                          </IconButton>
+                          <IconButton
+                            edge="end"
+                            aria-label="delete"
+                            onClick={() => handleDeleteReview(review)}
+                          >
+                            <DeleteIcon />
+                          </IconButton>
+                        </div>
+                      )
+                    }
                   </>
                 }
               >
@@ -55,13 +57,13 @@ const Reviews = ({ reviews, setReviews, showActions }) => {
                   <Avatar src={userAvatar}></Avatar>
                 </ListItemAvatar>
                 <ReviewRow review={review}></ReviewRow>
-              </ListItem>
+              </ListItem >
               <Divider variant="inset" />
             </>
           )
         })}
-      </List>
-    </div>
+      </List >
+    </div >
   );
 };
 
