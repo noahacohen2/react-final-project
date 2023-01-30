@@ -85,7 +85,7 @@ const ProfilePage = () => {
             <Card className="profileCard">
                 <UserDetails onChangePassowrdClick={changeViewState} showBtn={showReviews}></UserDetails>
                 <Divider orientation="vertical" flexItem></Divider>
-                {showReviews && (<Reviews reviews={userReviews} setReviews={setUserReviews}></Reviews>)}
+                {showReviews && (<Reviews reviews={userReviews} setReviews={setUserReviews} showActions={true}></Reviews>)}
                 {!showReviews && (<ChangePassword changeViewState={changeViewState}></ChangePassword>)}
             </Card>
         </div>

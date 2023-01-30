@@ -12,6 +12,10 @@ const ChangePassword = ({ changeViewState }) => {
     const [user, setUser] = useContext(AppContext).user;
     const [message, setMessage] = useState("")
 
+    const onCancelClickHandler = () => {
+        changeViewState();
+    }
+
     const saveHandler = () => {
         const enteredPassword = passwordInputRef.current.value;
         const enteredConfirm = confirmInputRef.current.value;
@@ -46,7 +50,8 @@ const ChangePassword = ({ changeViewState }) => {
                 </div>
             </div>
             <div className="centerElements">
-                <Button className="passwordSubmitBtn" variant="contained" disableElevation onClick={saveHandler}>Save</Button>
+                <Button className="passowrd-cancel-btn" variant="outlined" disableElevation onClick={onCancelClickHandler}>cancel</Button>
+                <Button className="password-submit-btn" variant="contained" disableElevation onClick={saveHandler}>Save</Button>
             </div>
         </div >
     );

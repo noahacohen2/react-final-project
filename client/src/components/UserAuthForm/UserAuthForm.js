@@ -1,5 +1,5 @@
 import "./UserAuthForm.css";
-import { useRef, useContext } from "react";
+import { useRef, useContext, useEffect } from "react";
 import AppContext from "../../Context/Context";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -12,6 +12,13 @@ const UserAuthForm = ({ isLogin, message, setMessage }) => {
     const passwordInputRef = useRef();
     const navigate = useNavigate();
     const [user, setUser] = useContext(AppContext).user;
+
+    useEffect(() => {
+        console.log("2")
+        if (user) {
+            navigate("/AllMusicals", { replace: true });
+        }
+    }, user);
 
     const clickHandler = () => {
         const enteredEmail = emailInputRef.current.value;

@@ -10,8 +10,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import reviewsService from "../../Services/reviews.js";
 
-
-const Reviews = ({ reviews, setReviews }) => {
+const Reviews = ({ reviews, setReviews, showActions }) => {
     let userAvatar = require('../../Assets/olafAvatar.jpg')
 
     const handleDeleteReview = async (review) => {
@@ -33,14 +32,16 @@ const Reviews = ({ reviews, setReviews }) => {
                         <>
                             <ListItem key={index}
                                 secondaryAction={
-                                    <div className="secondary-action">
-                                        <IconButton edge="end" aria-label="update">
-                                            <EditIcon />
-                                        </IconButton>
-                                        <IconButton edge="end" aria-label="delete" onClick={() => handleDeleteReview(review)}>
-                                            <DeleteIcon />
-                                        </IconButton>
-                                    </div>
+                                    <>
+                                        {showActions && (<div className="secondary-action">
+                                            <IconButton edge="end" aria-label="update">
+                                                <EditIcon />
+                                            </IconButton>
+                                            <IconButton edge="end" aria-label="delete" onClick={() => handleDeleteReview(review)}>
+                                                <DeleteIcon />
+                                            </IconButton>
+                                        </div>)}
+                                    </>
                                 }>
                                 <ListItemAvatar>
                                     <Avatar src={userAvatar}></Avatar>
