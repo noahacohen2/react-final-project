@@ -31,7 +31,6 @@ const MusicalPage = () => {
         setMusicalReviews(res.data);
       })
       .catch((error) => {
-        debugger;
         console.log(error);
       });
   }, []);

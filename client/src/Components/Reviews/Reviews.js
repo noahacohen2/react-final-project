@@ -27,7 +27,7 @@ const Reviews = ({ reviews, setReviews, showActions }) => {
       <div className="reviews-Title">Reviews</div>
       <Divider variant="middle" />
       <List className="reviews-List">
-        {reviews.map((review, index) => {
+        {reviews?.map((review, index) => {
           return (
             <>
               <ListItem

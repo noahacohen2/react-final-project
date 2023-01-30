@@ -12,7 +12,7 @@ const UserDetails = ({ onChangePassowrdClick, showBtn }) => {
   };
 
   return (
-    <>
+    <div>
       <div className="userDetails">
         <img className="avatarImg" src={userDefaultImg} />
         <div>
@@ -31,7 +31,7 @@ const UserDetails = ({ onChangePassowrdClick, showBtn }) => {
           edit password
         </Button>
       )}
-    </>
+    </div>
   );
 };
 
