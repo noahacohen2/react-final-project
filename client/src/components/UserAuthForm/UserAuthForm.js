@@ -14,11 +14,10 @@ const UserAuthForm = ({ isLogin, message, setMessage }) => {
   const [user, setUser] = useContext(AppContext).user;
 
   useEffect(() => {
-    console.log("2");
     if (user) {
       navigate("/AllMusicals", { replace: true });
     }
-  }, user);
+  }, [user]);
 
   const clickHandler = () => {
     const enteredEmail = emailInputRef.current.value;

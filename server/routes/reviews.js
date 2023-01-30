@@ -31,6 +31,28 @@ router.get("/", (req, res) => {
     });
 });
 
+router.get("/rating/", (req, res) => {
+  Review.aggregate([
+    {
+      $match: { EventId: Number(req.query.musicalId) },
+    },
+    {
+      $group: {
+        _id: "$Stars",
+        count: { $count: {} },
+      },
+    },
+  ])
+    .then((reviews) => {
+      console.log(reviews);
+      res.end(JSON.stringify(reviews));
+    })
+    .catch((e) => {
+      console.log(e);
+      res.end();
+    });
+});
+
 router.get("/:user", (req, res) => {
   let userId = req.params.user;
   Review.aggregate([

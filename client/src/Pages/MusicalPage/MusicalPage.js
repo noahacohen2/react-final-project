@@ -38,8 +38,8 @@ const MusicalPage = () => {
   return (
     <>
       {user && <UpBar />}
-      <Card className="musical-details-card">
-        <Grid>
+      <Card id="the-card">
+        <Grid className="musical-details-card">
           <Grid container spacing={2}>
             <Grid item>
               <img id="musical-img" src={currMusical?.MainImageUrl} />
@@ -100,10 +100,14 @@ const MusicalPage = () => {
           </Grid>
         </Grid>
         <Divider orientation="vertical" flexItem />
-        <div id="rating-chart">
-          <MusicalRatingChart />
+        <Grid
+          justifyContent="flex-start"
+          alignItems="flex-start"
+          id="right-side-card"
+        >
+          <MusicalRatingChart musicalEventId={currMusical?.EventId} />
           <Reviews reviews={musicalReviews} />
-        </div>
+        </Grid>
       </Card>
     </>
   );
