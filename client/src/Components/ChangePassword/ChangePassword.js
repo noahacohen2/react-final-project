@@ -1,16 +1,16 @@
 import "./ChangePassword.css";
-import { useRef, useContext, useState } from 'react';
+import { useRef, useContext, useState } from "react";
 import AppContext from "../../Context/Context";
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import authService from "../../Services/auth"
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import authService from "../../services/auth";
 
 const ChangePassword = ({ changeViewState }) => {
-    const passwordInputRef = useRef();
-    const confirmInputRef = useRef();
+  const passwordInputRef = useRef();
+  const confirmInputRef = useRef();
 
-    const [user, setUser] = useContext(AppContext).user;
-    const [message, setMessage] = useState("")
+  const [user, setUser] = useContext(AppContext).user;
+  const [message, setMessage] = useState("");
 
     const onCancelClickHandler = () => {
         changeViewState();
@@ -20,20 +20,23 @@ const ChangePassword = ({ changeViewState }) => {
         const enteredPassword = passwordInputRef.current.value;
         const enteredConfirm = confirmInputRef.current.value;
 
-        if (enteredConfirm != enteredPassword) {
-            setMessage("Both passwords should be the same")
-        } else if (enteredPassword.length < 6) {
-            setMessage("Password should be at least 6 characters")
-        } else {
-            authService.ChangePassword(user, enteredPassword).then(data => {
-                setUser(data)
-                setMessage("")
-                changeViewState();
-            }).catch(err => {
-                setMessage("We couldn't change your password")
-            })
-        }
+    if (enteredConfirm != enteredPassword) {
+      setMessage("Both passwords should be the same");
+    } else if (enteredPassword.length < 6) {
+      setMessage("Password should be at least 6 characters");
+    } else {
+      authService
+        .ChangePassword(user, enteredPassword)
+        .then((data) => {
+          setUser(data);
+          setMessage("");
+          changeViewState();
+        })
+        .catch((err) => {
+          setMessage("We couldn't change your password");
+        });
     }
+  };
 
     return (
         <div className="Form" >
@@ -55,6 +58,7 @@ const ChangePassword = ({ changeViewState }) => {
             </div>
         </div >
     );
+
 };
 
 export default ChangePassword;
