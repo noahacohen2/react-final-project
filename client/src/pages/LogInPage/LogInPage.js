@@ -13,6 +13,7 @@ const LogInPage = () => {
         setMessage("")
         setIsLogin(!isLogin)
     }
+
     return (
         <div className="logIn">
             <Card className="logInCard">
