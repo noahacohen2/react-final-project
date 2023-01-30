@@ -7,23 +7,21 @@ const ConetxtProvider = ({ children }) => {
   const [currentMusicalId, setCurrentMusicalId] = useState();
 
   useEffect(() => {
-    console.log("1")
-    debugger;
     const getUser = async () => {
-      if (localStorage.getItem('user')) {
-        return await setUser(JSON.parse(localStorage.getItem('user')));
+      if (localStorage.getItem("user")) {
+        return await setUser(JSON.parse(localStorage.getItem("user")));
       }
     };
 
-    getUser().then(data => {
+    getUser().then((data) => {
       return;
     });
   }, []);
 
   const setUserStorage = (newUser) => {
     setUser(newUser);
-    localStorage.setItem('user', JSON.stringify(newUser))
-  }
+    localStorage.setItem("user", JSON.stringify(newUser));
+  };
 
   const contextData = {
     user: [user, setUserStorage],

@@ -14,7 +14,7 @@ const musicalSchema = new mongoose.Schema({
     require: true,
   },
   RunningTime: {
-    type: Number,
+    type: String,
     require: true,
   },
   MinimumAge: {
