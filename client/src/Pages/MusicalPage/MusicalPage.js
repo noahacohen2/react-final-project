@@ -10,16 +10,30 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import ConfirmationNumberOutlinedIcon from "@mui/icons-material/ConfirmationNumberOutlined";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
+import MusicalRatingChart from "../../Components/MusicalRatingChart/MusicalRatingChart";
+import Reviews from "../../Components/Reviews/Reviews";
+import reviewsService from "../../services/reviews";
 
 const MusicalPage = () => {
   const [currentMusicalId, setCurrentMusicalId] =
     useContext(AppContext).currentMusical;
   const [musicals, setMusicals] = useContext(AppContext).musicals;
   const [currMusical, setCurrMusical] = useState();
+  const [musicalReviews, setMusicalReviews] = useState();
   const [user, setUser] = useContext(AppContext).user;
 
   useEffect(() => {
-    setCurrMusical(musicals.find((musical) => musical._id == currentMusicalId));
+    const musical = musicals.find((musical) => musical._id == currentMusicalId);
+    setCurrMusical(musical);
+    reviewsService
+      .getReviews(musical.EventId)
+      .then((res) => {
+        setMusicalReviews(res.data);
+      })
+      .catch((error) => {
+        debugger;
+        console.log(error);
+      });
   }, []);
 
   return (
@@ -31,7 +45,6 @@ const MusicalPage = () => {
             <Grid item>
               <img id="musical-img" src={currMusical?.MainImageUrl} />
             </Grid>
-
             <Grid item>
               <div id="musical-title">{currMusical?.Name}</div>
               <div className="musical-text">{currMusical?.TagLine}</div>
@@ -51,7 +64,6 @@ const MusicalPage = () => {
                 alignItems="center"
               >
                 <AccessTimeIcon className="musical-details" />
-
                 <div className="musical-details">
                   {currMusical?.RunningTime}
                 </div>
@@ -88,7 +100,11 @@ const MusicalPage = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Divider orientation="vertical" flexItem></Divider>
+        <Divider orientation="vertical" flexItem />
+        <div id="rating-chart">
+          <MusicalRatingChart />
+          <Reviews reviews={musicalReviews} />
+        </div>
       </Card>
     </>
   );

@@ -73,7 +73,7 @@ const ProfilePage = () => {
           showBtn={showReviews}
         />
         <Divider orientation="vertical" flexItem></Divider>
-        {showReviews && <Reviews reviews={userReviews}></Reviews>}
+        {showReviews && <Reviews reviews={userReviews} />}
         {!showReviews && (
           <ChangePassword changeViewState={changeViewState}></ChangePassword>
         )}

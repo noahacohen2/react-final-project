@@ -31,3 +31,8 @@
   margin-top: 20px;
   margin-left: 20px;
 }
+
+#rating-chart {
+  max-width: 500px;
+  max-height: 180px !important;
+}

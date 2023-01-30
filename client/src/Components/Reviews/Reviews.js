@@ -13,17 +13,17 @@ const Reviews = ({ reviews }) => {
       <div className="reviews-Title">Reviews</div>
       <Divider variant="middle" />
       <List className="reviews-List">
-        {reviews.map((review, index) => {
+        {reviews?.map((review, index) => {
           return (
-            <>
-              <ListItem key={index}>
+            <div key={index}>
+              <ListItem>
                 <ListItemAvatar>
                   <Avatar src={userAvatar} />
                 </ListItemAvatar>
                 <ReviewRow review={review} />
               </ListItem>
               <Divider variant="inset" />
-            </>
+            </div>
           );
         })}
       </List>
