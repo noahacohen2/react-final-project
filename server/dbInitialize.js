@@ -116,7 +116,7 @@ const initReview = (musicalId) => {
                     Content: review.Content,
                     EventId: musicalId,
                     Seat: randomSeat(),
-                    User_id: userId[random(userId)]
+                    "User_id": userId[random(userId)]
                 }
             });
             Review.insertMany(dbReviews)
@@ -137,7 +137,7 @@ const initReviews = async (musicals) => {
 }
 
 
-// initEvents()
+initEvents()
 // initVenues();
 
 

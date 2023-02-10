@@ -44,7 +44,6 @@ router.get("/rating/", (req, res) => {
     },
   ])
     .then((reviews) => {
-      console.log(reviews);
       res.end(JSON.stringify(reviews));
     })
     .catch((e) => {
@@ -72,14 +71,14 @@ router.get("/:user", (req, res) => {
         Musical: { $arrayElemAt: ["$Musical.Name", 0] },
       },
     },
-  ])
-    .then((reviews) => {
-      res.end(JSON.stringify(reviews));
-    })
-    .catch((e) => {
-      console.log(e);
-      res.end();
-    });
+  ]).then((reviews) => {
+    res.status(200)
+    res.end(JSON.stringify(reviews));
+  }).catch((e) => {
+    console.log("e", e);
+    res.status(500)
+    res.end();
+  });
 });
 
 router.delete("/", (req, res) => {

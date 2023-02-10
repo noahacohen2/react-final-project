@@ -20,18 +20,14 @@ const ProfilePage = () => {
 
   useEffect(() => {
     const getReviews = (userID) => {
-      reviewsService
-        .getUserReviews(userID)
-        .then((res) => {
-          setUserReviews(res.data);
-          console.log(res.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      reviewsService.getUserReviews(userID).then((res) => {
+        setUserReviews(res.data);
+      }).catch((error) => {
+        console.log(error);
+      });
     };
 
-    getReviews(user.localId);
+    getReviews(user.localId)
   }, []);
 
   return (

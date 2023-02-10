@@ -9,9 +9,9 @@ import ConetxtProvider from "./Context/ContextProvider";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <ConetxtProvider>
-    <React.StrictMode>
-      <App></App>
-    </React.StrictMode>
+    {/* <React.StrictMode> */}
+    <App></App>
+    {/* </React.StrictMode> */}
   </ConetxtProvider>
 );
 

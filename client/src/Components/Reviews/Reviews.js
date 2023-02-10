@@ -76,7 +76,7 @@ const Reviews = ({ reviews, setReviews, showActions, noDataText }) => {
   }
 
   const filteredReviews = () => {
-    return reviews.filter(review => {
+    return reviews?.filter(review => {
       return ((currFilter.length != 0 && checkFilterParam(review)) ||
         currFilter.length == 0)
     })
@@ -101,56 +101,57 @@ const Reviews = ({ reviews, setReviews, showActions, noDataText }) => {
         />
       </div>
       <Divider variant="middle" />
-      {filteredReviews.length == 0 && (
+      {filteredReviews()?.length == 0 && (
         <>
           <div className="center-items">
             <img className="no-reviews-img" src={noDataImg} />
           </div>
           {noDataText?.split('&')?.map((text) => {
-            console.log(text)
             return (<>
               <div className="reviews-no-data-text">{text}</div>
             </>)
           })}
         </>
       )}
-      {filteredReviews.length > 0 &&
-        (<List className="reviews-List">
-          {filteredReviews()?.map((review, index) => {
-            return (
-              <div key={index}>
-                <ListItem
-                  secondaryAction={
-                    <>
-                      {
-                        showActions && (
-                          <div className="secondary-action">
-                            <IconButton edge="end" aria-label="update">
-                              <EditIcon />
-                            </IconButton>
-                            <IconButton
-                              edge="end"
-                              aria-label="delete"
-                              onClick={() => handleDeleteReview(review)}
-                            >
-                              <DeleteIcon />
-                            </IconButton>
-                          </div>
-                        )
-                      }
-                    </>
-                  }
-                >
-                  <ListItemAvatar>
-                    <Avatar src={userAvatar}></Avatar>
-                  </ListItemAvatar>
-                  <ReviewRow review={review}></ReviewRow>
-                </ListItem >
-                <Divider variant="inset" />
-              </div>
-            )
-          })}
-        </List >)}
+      {filteredReviews()?.length > 0 &&
+        (
+          <List className="reviews-List">
+            {filteredReviews()?.map((review, index) => {
+              return (
+                <div key={index}>
+                  <ListItem
+                    secondaryAction={
+                      <>
+                        {
+                          showActions && (
+                            <div className="secondary-action">
+                              <IconButton edge="end" aria-label="update">
+                                <EditIcon />
+                              </IconButton>
+                              <IconButton
+                                edge="end"
+                                aria-label="delete"
+                                onClick={() => handleDeleteReview(review)}
+                              >
+                                <DeleteIcon />
+                              </IconButton>
+                            </div>
+                          )
+                        }
+                      </>
+                    }
+                  >
+                    <ListItemAvatar>
+                      <Avatar src={userAvatar}></Avatar>
+                    </ListItemAvatar>
+                    <ReviewRow review={review}></ReviewRow>
+                  </ListItem >
+                  <Divider variant="inset" />
+                </div>
+              )
+            })}
+          </List >
+        )}
     </div >
   );
 };
