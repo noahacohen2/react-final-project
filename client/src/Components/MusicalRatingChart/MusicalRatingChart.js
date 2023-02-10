@@ -55,7 +55,7 @@ const MusicalRatingChart = ({ musicalEventId }) => {
         let tempLabels = [];
         let tempStars = [];
         amountOfStars.sort((a, b) => {
-          return a.count - b.count;
+          return a._id - b._id;
         });
 
         amountOfStars.map((couple) => {
@@ -69,7 +69,7 @@ const MusicalRatingChart = ({ musicalEventId }) => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [labels]);
 
   return <Bar options={options} data={data} />;
 };
