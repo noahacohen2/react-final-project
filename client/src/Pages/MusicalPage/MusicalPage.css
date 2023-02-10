@@ -1,9 +1,5 @@
 .musical-details-card {
-  width: 950px;
-  height: 500px;
-  margin: auto;
-  margin-top: 70px !important;
-  display: flex;
+  width: 100%;
 }
 
 .musical-details {
@@ -32,7 +28,14 @@
   margin-left: 20px;
 }
 
-#rating-chart {
+#right-side-card {
   max-width: 500px;
-  max-height: 180px !important;
+}
+
+#the-card {
+  width: 950px;
+  height: 500px;
+  margin: auto;
+  margin-top: 70px !important;
+  display: flex;
 }

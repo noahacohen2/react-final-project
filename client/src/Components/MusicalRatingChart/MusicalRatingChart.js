@@ -10,6 +10,8 @@ import {
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import "./MusicalRatingChart.css";
+import reviewsService from "../../Services/reviews";
+import { useEffect, useState } from "react";
 
 ChartJS.register(
   CategoryScale,
@@ -20,35 +22,56 @@ ChartJS.register(
   Legend
 );
 
-export const options = {
-  responsive: true,
-  plugins: {
-    title: {
-      display: true,
-      text: "Musical Rating",
+const MusicalRatingChart = ({ musicalEventId }) => {
+  const [labels, setLabels] = useState([]);
+  const [stars, setStars] = useState([]);
+
+  const options = {
+    responsive: true,
+    plugins: {
+      title: {
+        display: true,
+        text: "Musical Rating",
+      },
     },
-  },
-};
+  };
 
-const labels = ["January", "February", "March", "April", "May", "June", "July"];
+  const data = {
+    labels: stars,
+    datasets: [
+      {
+        label: "stars",
+        data: labels,
+        backgroundColor: "#F11551",
+      },
+    ],
+  };
 
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: "stars",
-      data: labels.map((labl, i) => i * 10 + i),
-      backgroundColor: "#F11551",
-    },
-  ],
-};
+  useEffect(() => {
+    reviewsService
+      .getMusicalReviewsRatingAmount(musicalEventId)
+      .then((res) => {
+        let amountOfStars = res.data;
+        let tempLabels = [];
+        let tempStars = [];
+        amountOfStars.sort((a, b) => {
+          return a._id - b._id;
+        });
 
-const MusicalRatingChart = () => {
-  return (
-    <div>
-      <Bar options={options} data={data} />
-    </div>
-  );
+        amountOfStars.map((couple) => {
+          tempLabels.push(couple.count);
+          tempStars.push(couple._id);
+        });
+
+        setLabels(tempLabels);
+        setStars(tempStars);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [labels]);
+
+  return <Bar options={options} data={data} />;
 };
 
 export default MusicalRatingChart;

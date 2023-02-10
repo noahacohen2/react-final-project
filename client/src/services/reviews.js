@@ -12,6 +12,17 @@ export default {
       });
   },
 
+  async getMusicalReviewsRatingAmount(currentMusicalId) {
+    return await api
+      .get("/reviews/rating", { params: { musicalId: currentMusicalId } })
+      .then((res) => {
+        return res;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+
   async getUserReviews(userID) {
     return await api
       .get("/reviews/" + userID, {})
