@@ -48,6 +48,7 @@ const ProfilePage = () => {
             reviews={userReviews}
             setReviews={setUserReviews}
             showActions={true}
+            noDataText="You're probably new here, & you haven't reviewed any musicals yet"
           ></Reviews>
         )}
         {!showReviews && (

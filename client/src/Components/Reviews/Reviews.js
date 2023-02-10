@@ -14,12 +14,13 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 
 
-const Reviews = ({ reviews, setReviews, showActions }) => {
+const Reviews = ({ reviews, setReviews, showActions, noDataText }) => {
   const [isFiltePopupOpen, setIsFiltePopupOpen] = useState(false);
   const [filterArray, setFilterArray] = useState([]);
   const [currFilter, setCurrFilter] = useState([]);
 
   let userAvatar = require('../../Assets/olafAvatar.jpg');
+  let noDataImg = require("../../Assets/noReviews.png")
 
   useEffect(() => {
     const setFilterOptionalValues = (filterKey, tempFilter) => {
@@ -81,7 +82,6 @@ const Reviews = ({ reviews, setReviews, showActions }) => {
 
   return (
     <div className="reviews">
-
       {showActions && (<FilterDialog
         isOpen={isFiltePopupOpen}
         closeDialog={() => {
@@ -99,42 +99,56 @@ const Reviews = ({ reviews, setReviews, showActions }) => {
         />
       </div>
       <Divider variant="middle" />
-      <List className="reviews-List">
-        {filteredReviews()?.map((review, index) => {
-          return (
-            <div key={index}>
-              <ListItem
-                secondaryAction={
-                  <>
-                    {
-                      showActions && (
-                        <div className="secondary-action">
-                          <IconButton edge="end" aria-label="update">
-                            <EditIcon />
-                          </IconButton>
-                          <IconButton
-                            edge="end"
-                            aria-label="delete"
-                            onClick={() => handleDeleteReview(review)}
-                          >
-                            <DeleteIcon />
-                          </IconButton>
-                        </div>
-                      )
-                    }
-                  </>
-                }
-              >
-                <ListItemAvatar>
-                  <Avatar src={userAvatar}></Avatar>
-                </ListItemAvatar>
-                <ReviewRow review={review}></ReviewRow>
-              </ListItem >
-              <Divider variant="inset" />
-            </div>
-          )
-        })}
-      </List >
+      {filteredReviews.length == 0 && (
+        <>
+          <div className="center-items">
+            <img className="no-reviews-img" src={noDataImg} />
+          </div>
+          {noDataText.split('&').map((text) => {
+            console.log(text)
+            return (<>
+              <div className="reviews-no-data-text">{text}</div>
+            </>)
+          })}
+        </>
+      )}
+      {filteredReviews.length > 0 &&
+        (<List className="reviews-List">
+          {filteredReviews()?.map((review, index) => {
+            return (
+              <div key={index}>
+                <ListItem
+                  secondaryAction={
+                    <>
+                      {
+                        showActions && (
+                          <div className="secondary-action">
+                            <IconButton edge="end" aria-label="update">
+                              <EditIcon />
+                            </IconButton>
+                            <IconButton
+                              edge="end"
+                              aria-label="delete"
+                              onClick={() => handleDeleteReview(review)}
+                            >
+                              <DeleteIcon />
+                            </IconButton>
+                          </div>
+                        )
+                      }
+                    </>
+                  }
+                >
+                  <ListItemAvatar>
+                    <Avatar src={userAvatar}></Avatar>
+                  </ListItemAvatar>
+                  <ReviewRow review={review}></ReviewRow>
+                </ListItem >
+                <Divider variant="inset" />
+              </div>
+            )
+          })}
+        </List >)}
     </div >
   );
 };
