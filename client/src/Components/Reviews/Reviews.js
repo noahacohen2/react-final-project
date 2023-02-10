@@ -23,28 +23,30 @@ const Reviews = ({ reviews, setReviews, showActions, noDataText }) => {
   let noDataImg = require("../../Assets/noReviews.png")
 
   useEffect(() => {
-    const setFilterOptionalValues = (filterKey, tempFilter) => {
-      let currFilter = tempFilter.find(fil => fil.key == filterKey);
-      currFilter.optionalValues = [...new Set(reviews.map((review) => review[filterKey]))];
-    };
+    if (reviews) {
+      const setFilterOptionalValues = (filterKey, tempFilter) => {
+        let currFilter = tempFilter.find(fil => fil.key == filterKey);
+        currFilter.optionalValues = [...new Set(reviews.map((review) => review[filterKey]))];
+      };
 
-    let tempFilter = [
-      {
-        key: 'Seat', title: 'Seat', optionalValues: []
-      },
-      {
-        key: 'Stars', title: 'Stars', optionalValues: []
-      },
-      {
-        key: 'Musical', title: 'Musical', optionalValues: []
-      }
-    ]
+      let tempFilter = [
+        {
+          key: 'Seat', title: 'Seat', optionalValues: []
+        },
+        {
+          key: 'Stars', title: 'Stars', optionalValues: []
+        },
+        {
+          key: 'Musical', title: 'Musical', optionalValues: []
+        }
+      ]
 
-    setFilterOptionalValues('Seat', tempFilter);
-    setFilterOptionalValues('Stars', tempFilter);
-    setFilterOptionalValues('Musical', tempFilter);
+      setFilterOptionalValues('Seat', tempFilter);
+      setFilterOptionalValues('Stars', tempFilter);
+      setFilterOptionalValues('Musical', tempFilter);
 
-    setFilterArray(tempFilter)
+      setFilterArray(tempFilter)
+    }
   }, [reviews])
 
   const openFilterPopup = () => {
@@ -104,7 +106,7 @@ const Reviews = ({ reviews, setReviews, showActions, noDataText }) => {
           <div className="center-items">
             <img className="no-reviews-img" src={noDataImg} />
           </div>
-          {noDataText.split('&').map((text) => {
+          {noDataText?.split('&')?.map((text) => {
             console.log(text)
             return (<>
               <div className="reviews-no-data-text">{text}</div>
