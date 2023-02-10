@@ -45,6 +45,7 @@ const ProfilePage = () => {
         <Divider orientation="vertical" flexItem></Divider>
         {showReviews && (
           <Reviews
+            cardSize={425}
             reviews={userReviews}
             setReviews={setUserReviews}
             showActions={true}

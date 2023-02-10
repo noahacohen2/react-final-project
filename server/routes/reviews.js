@@ -44,7 +44,6 @@ router.get("/rating/", (req, res) => {
     },
   ])
     .then((reviews) => {
-      console.log(reviews);
       res.end(JSON.stringify(reviews));
     })
     .catch((e) => {
@@ -83,9 +82,30 @@ router.get("/:user", (req, res) => {
 });
 
 router.delete("/", (req, res) => {
-  let review = req.body;
+  const review = req.body;
 
   Review.deleteOne({ _id: ObjectID(review._id) })
+    .then(() => {
+      res.end();
+    })
+    .catch((e) => {
+      console.log(e);
+      res.end();
+    });
+});
+
+router.post("/", (req, res) => {
+  const review = req.body.params;
+
+  Review.create([
+    {
+      Stars: review.reviewStars,
+      Content: review.reviewContent,
+      EventId: review.musicalEventId,
+      Seat: review.reviewSeat,
+      user_id: review.reviewUser,
+    },
+  ])
     .then(() => {
       res.end();
     })

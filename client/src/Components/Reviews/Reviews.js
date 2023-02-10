@@ -10,7 +10,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import reviewsService from "../../Services/reviews.js";
 
-const Reviews = ({ reviews, setReviews, showActions }) => {
+const Reviews = ({ reviews, setReviews, showActions, cardSize }) => {
   let userAvatar = require("../../Assets/olafAvatar.jpg");
 
   const handleDeleteReview = async (review) => {
@@ -26,7 +26,7 @@ const Reviews = ({ reviews, setReviews, showActions }) => {
     <div className="reviews">
       <div className="reviews-Title">Reviews</div>
       <Divider variant="middle" />
-      <List className="reviews-List">
+      <List className="reviews-List" style={{ "max-height": cardSize }}>
         {reviews?.map((review, index) => {
           return (
             <>

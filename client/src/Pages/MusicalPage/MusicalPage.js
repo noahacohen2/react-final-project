@@ -13,12 +13,15 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import MusicalRatingChart from "../../Components/MusicalRatingChart/MusicalRatingChart";
 import Reviews from "../../Components/Reviews/Reviews";
 import reviewsService from "../../Services/reviews";
+import Button from "@mui/material/Button";
+import AddReviewDialog from "../../Components/AddReviewDialog/UpsertReviewDialog";
 
 const MusicalPage = () => {
   const [currentMusicalId, setCurrentMusicalId] =
     useContext(AppContext).currentMusical;
   const [musicals, setMusicals] = useContext(AppContext).musicals;
   const [currMusical, setCurrMusical] = useState();
+  const [isAddReviewDialogOPen, setIsAddReviewDialogOPen] = useState(false);
   const [musicalReviews, setMusicalReviews] = useState();
   const [user, setUser] = useContext(AppContext).user;
 
@@ -97,6 +100,21 @@ const MusicalPage = () => {
               <LocationOnOutlinedIcon className="musical-details" />
               <div className="musical-details">{currMusical?.City}</div>
             </Grid>
+            <Grid
+              container
+              direction="row"
+              justifyContent="flex-start"
+              alignItems="flex-end"
+            >
+              <Button
+                id="add-review-btn"
+                onClick={() => {
+                  setIsAddReviewDialogOPen(true);
+                }}
+              >
+                Add Review +
+              </Button>
+            </Grid>
           </Grid>
         </Grid>
         <Divider orientation="vertical" flexItem />
@@ -106,9 +124,17 @@ const MusicalPage = () => {
           id="right-side-card"
         >
           <MusicalRatingChart musicalEventId={currMusical?.EventId} />
-          <Reviews reviews={musicalReviews} />
+          <Reviews cardSize={180} reviews={musicalReviews} />
         </Grid>
       </Card>
+      <AddReviewDialog
+        musicalName={currMusical?.Name}
+        musicalEventId={currMusical?.EventId}
+        isOpen={isAddReviewDialogOPen}
+        closeDialog={() => {
+          setIsAddReviewDialogOPen(false);
+        }}
+      />
     </>
   );
 };

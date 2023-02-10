@@ -22,9 +22,6 @@ const MusicalCard = ({ musical }) => {
       <div>Min Price: {musical.EventMinimumPrice}</div>
       <div>Min Age: {musical.MinimumAge}</div>
       <div>City: {musical.City}</div>
-      {
-        // TODO
-      }
     </div>
   );
 };

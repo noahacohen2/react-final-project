@@ -45,4 +45,32 @@ export default {
         return false;
       });
   },
+
+  async upsertReview(
+    reviewName,
+    reviewSeat,
+    reviewContent,
+    reviewStars,
+    reviewUser,
+    musicalEventId
+  ) {
+    debugger;
+    return await api
+      .post("/reviews", {
+        params: {
+          reviewName,
+          reviewSeat,
+          reviewContent,
+          reviewStars,
+          reviewUser,
+          musicalEventId,
+        },
+      })
+      .then((res) => {
+        return res;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
 };
