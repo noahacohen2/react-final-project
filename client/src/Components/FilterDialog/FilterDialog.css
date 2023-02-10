@@ -10,14 +10,15 @@
 .clicked {
   background-color: #ef1659 !important;
   color: white !important;
+  border-color: #ef1659 !important;
 }
 
 .unclicked {
   background-color: white !important;
   color: #ef1659 !important;
   border-color: #ef1659 !important;
-  /* border-top-width: medium !important; */
 }
+
 #dialog-title {
   font-size: 30px;
   font-weight: bold;
@@ -32,7 +33,7 @@
 }
 
 .filter-category {
-  margin-left: 20px;
+  padding-left: 20px;
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -42,8 +43,8 @@
   background-color: #ef1659 !important;
   color: white !important;
   width: 130px !important;
-  font-weight: 700 !important;
-  font-size: 20px !important;
+  font-weight: 600 !important;
+  font-size: 18px !important;
   height: 38px !important;
   margin-right: 20px !important;
   margin-bottom: 20px;

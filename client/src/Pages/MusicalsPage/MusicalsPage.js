@@ -15,21 +15,36 @@ const MusicalsPage = () => {
   const [musicals, setMusicals] = useContext(AppContext).musicals;
   const [searchValue, setSearchValue] = useState("");
   const [filterArray, setFilterArray] = useState([]);
-  const [cities, setCities] = useState();
-  const [minAge, setMinAge] = useState();
-  const [minPrice, setMinPrice] = useState();
+  const [currFilter, setCurrFilter] = useState([]);
+
 
   const [isFiltePopupOpen, setIsFiltePopupOpen] = useState(false);
 
   useEffect(() => {
+    const setFilterOptionalValues = (filterKey, tempFilter) => {
+      let currFilter = tempFilter.find(fil => fil.key == filterKey);
+      currFilter.optionalValues = [...new Set(musicals.map((musical) => musical[filterKey]))];
+    };
+    let tempFilter = [
+      {
+        key: 'City', title: 'City', optionalValues: []
+      },
+      {
+        key: 'MinimumAge', title: 'Minimum age', optionalValues: []
+      },
+      {
+        key: 'EventMinimumPrice', title: 'Price', optionalValues: []
+      }
+    ]
     const getMusicals = () => {
       musicalsService
         .getMusicals()
         .then((res) => {
           setMusicals(res.data);
-          setFilterOptions(setCities, "City", res.data);
-          setFilterOptions(setMinAge, "MinimumAge", res.data);
-          setFilterOptions(setMinPrice, "EventMinimumPrice", res.data);
+          setFilterOptionalValues('City', tempFilter);
+          setFilterOptionalValues('MinimumAge', tempFilter);
+          setFilterOptionalValues('EventMinimumPrice', tempFilter);
+          setFilterArray(tempFilter)
         })
         .catch((error) => {
           console.log(error);
@@ -39,53 +54,29 @@ const MusicalsPage = () => {
     getMusicals();
   }, []);
 
-  const setFilterOptions = (setFunc, Feild, musicals) => {
-    setFunc([...new Set(musicals.map((musical) => musical[Feild]))]);
-  };
-
   const openFilterPopup = () => {
     setIsFiltePopupOpen(true);
   };
 
-  const checkFilterParam = (filterBy, musical) => {
-    let citiesFilter = [];
-    let ageFilter = [];
-    let priceFilter = [];
+  const checkFilterParam = (musical) => {
+    let isOk = true;
+    filterArray.forEach(filter => {
+      let currentFilterValues;
+      if (currFilter.find(curr => curr.key == filter.key)) {
+        currentFilterValues = currFilter.find(curr => curr.key == filter.key).selectedValues;
 
-    filterBy.map((filterCategory) => {
-      if (Object.keys(filterCategory) == "city") {
-        citiesFilter.push(filterCategory.city);
-        return;
-      }
-      if (Object.keys(filterCategory) == "age") {
-        ageFilter.push(filterCategory.age);
-        return;
-      }
-      if (Object.keys(filterCategory) == "price") {
-        priceFilter.push(filterCategory.price);
-        return;
+        isOk = isOk && (currentFilterValues.length == 0 || currentFilterValues.some(value => value === musical[filter.key]));
       }
     });
 
-    return (
-      (citiesFilter.length == 0 ||
-        citiesFilter.find((city) => city == musical.City)) &&
-      (ageFilter.length == 0 ||
-        ageFilter.find((age) => age <= musical.MinimumAge)) &&
-      (priceFilter.length == 0 ||
-        priceFilter.find((price) => price <= musical.EventMinimumPrice))
-    );
+    return isOk;
   };
 
   const Musicals = () => {
-    const musicalsBySearch = musicals.filter((musical) => {
-      if (
-        (filterArray.length != 0 && checkFilterParam(filterArray, musical)) ||
-        filterArray.length == 0
-      )
-        if (musical.Name.toLowerCase().includes(searchValue.toLowerCase()))
-          return musical;
-    });
+    const musicalsBySearch = musicals.filter(musical => {
+      return ((currFilter.length != 0 && checkFilterParam(musical)) ||
+        currFilter.length == 0)
+    })
 
     return musicalsBySearch?.map((musical, index) => (
       <MusicalCard key={index} musical={musical} />
@@ -96,14 +87,12 @@ const MusicalsPage = () => {
     <>
       {user && <UpBar />}
       <FilterDialog
-        cities={cities}
-        minAge={minAge}
-        minPrice={minPrice}
+        filterArray={filterArray}
         isOpen={isFiltePopupOpen}
         closeDialog={() => {
           setIsFiltePopupOpen(false);
         }}
-        saveFilterOptions={setFilterArray}
+        saveFilterOptions={setCurrFilter}
       />
       <Grid
         container

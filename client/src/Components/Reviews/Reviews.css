@@ -13,3 +13,13 @@
 .reviews {
     width: 100%;
 }
+
+.review-title-filter {
+    display: flex;
+}
+
+.review-filter-icon {
+    margin-top: 20px;
+    font-size: 30px !important;
+    cursor: pointer;
+}
