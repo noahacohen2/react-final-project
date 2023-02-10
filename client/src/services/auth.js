@@ -5,7 +5,7 @@ const API_KEY = "AIzaSyCctdnDaDWc9auUP2o4w21x_Z5zN-ooGxY";
 export default {
 
     async SignUp(userDetails) {
-        await fetch("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=" + API_KEY,
+        return await fetch("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=" + API_KEY,
             {
                 method: 'POST',
                 body: JSON.stringify({

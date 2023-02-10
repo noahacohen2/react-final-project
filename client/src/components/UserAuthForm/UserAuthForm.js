@@ -37,8 +37,8 @@ const UserAuthForm = ({ isLogin, message, setMessage }) => {
         } else {
             authService
                 .SignUp({ email: enteredEmail, password: enteredPassword })
-                .then((data) => {
-                    setUser(data);
+                .then((signUpData) => {
+                    setUser(signUpData);
                     navigate("/AllMusicals", { replace: true });
                 })
                 .catch((err) => {
