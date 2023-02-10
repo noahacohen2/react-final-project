@@ -9,18 +9,38 @@ import { useState } from "react";
 const FilterDialog = ({
   isOpen,
   closeDialog,
-  cities,
-  minPrice,
-  minAge,
+  filterArray, //filter title, key, optional values
   saveFilterOptions,
 }) => {
   const [filterByArray, setFilterByArray] = useState([]);
+  const [activeFilters, setActiveFilters] = useState([]);
+
 
   const addToFilterByArray = (key, filterBy) => {
-    setFilterByArray((prev) => [...prev, { [key]: filterBy }]);
+    let currKeyFilter = filterByArray.find(fil => fil.key == key)
+
+    if (!currKeyFilter) {
+      filterByArray.push({
+        key: key,
+        selectedValues: [filterBy]
+      })
+    } else {
+      currKeyFilter.selectedValues.push(filterBy)
+    }
+
+    setFilterByArray(filterByArray);
+    setActiveFilters((prev) => [...prev, { [key]: filterBy }]);
   };
   const removeFromFilterByArray = (key, removeFilter) => {
-    setFilterByArray((prev) =>
+    let currKeyFilter = filterByArray.find(fil => fil.key == key)
+    let index = currKeyFilter.selectedValues.indexOf(removeFilter);
+    if (index != -1) {
+      currKeyFilter.selectedValues.splice(index, 1);
+    }
+
+    setFilterByArray(filterByArray);
+
+    setActiveFilters((prev) =>
       prev.filter((filterBy) => filterBy[key] !== removeFilter)
     );
   };
@@ -32,7 +52,7 @@ const FilterDialog = ({
   };
 
   const isInFilterArray = (key, filterOptionValue) => {
-    return filterByArray.find(
+    return activeFilters.find(
       (filterOption) => filterOption[key] === filterOptionValue
     );
   };
@@ -49,12 +69,12 @@ const FilterDialog = ({
         {options?.map((filterOption, index) => (
           <Button
             key={index}
-            className={`filter-options-btn ${
-              isInFilterArray(key, filterOption) ? "clicked" : "unclicked"
-            }`}
+            className={`filter-options-btn ${isInFilterArray(key, filterOption) ? "clicked" : "unclicked"
+              }`}
             onClick={() => {
               handleFilterOptionClick(key, filterOption);
             }}
+            variant="outlined"
           >
             {filterOption}
           </Button>
@@ -75,13 +95,14 @@ const FilterDialog = ({
         <div id="dialog-title">Filters</div>
         <CloseIcon onClick={closeDialog} fontSize="large" id="x-icon" />
       </Grid>
-      <h2 className="filter-category">City</h2>
 
-      {filterBtns(cities, "city")}
-      <h2 className="filter-category">Minimum age</h2>
-      {filterBtns(minAge, "age")}
-      <h2 className="filter-category">Minimum Price</h2>
-      {filterBtns(minPrice, "price")}
+      {filterArray?.map((filter, filterIndex) => (
+        <div key={filterIndex}>
+          <h2 className="filter-category">{filter.title}</h2>
+          {filterBtns(filter.optionalValues, filter.key)}
+        </div>
+      ))}
+
       <Grid
         container
         direction="row"

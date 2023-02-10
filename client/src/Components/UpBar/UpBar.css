@@ -23,3 +23,12 @@
   border-color: black;
   margin-right: 70px;
 }
+
+.up-bar-link {
+  text-decoration: none;
+}
+
+.all-musicals-btn {
+  color: black !important;
+  width: 200px
+}
