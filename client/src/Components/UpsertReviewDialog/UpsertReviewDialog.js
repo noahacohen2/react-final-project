@@ -4,7 +4,7 @@ import "./UpsertReviewDialog.css";
 import TextField from "@mui/material/TextField";
 import Rating from "@mui/material/Rating";
 import Star from "@mui/icons-material/Star";
-import { useState, useContext, useRef } from "react";
+import { useState, useContext, useRef, useEffect } from "react";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import reviewsService from "../../Services/reviews";
@@ -16,15 +16,24 @@ const UpsertReviewDialog = ({
   closeDialog,
   musicalName,
   musicalEventId,
+  seat = "",
+  content = "",
+  starsRate = 0,
 }) => {
   const [user, setUser] = useContext(AppContext).user;
   const seatRef = useRef();
   const contentRef = useRef();
-  const [starsValue, setStarsValue] = useState(0);
+  const [starsValue, setStarsValue] = useState(starsRate);
 
-  const upsertReview = () => {
+  useEffect(() => {
+    if (mood == "update") {
+      setStarsValue(starsRate);
+    }
+  }, [isOpen]);
+
+  const addReview = () => {
     reviewsService
-      .upsertReview(
+      .addReview(
         musicalName,
         seatRef.current.value,
         contentRef.current.value,
@@ -38,6 +47,11 @@ const UpsertReviewDialog = ({
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  const updateReview = () => {
+    debugger;
+    // TODO
   };
 
   return (
@@ -78,10 +92,10 @@ const UpsertReviewDialog = ({
         >
           <div className="musical-field">Seat:</div>
           <TextField
-            label="Seat"
             className="review-text-field"
             size="small"
             inputRef={seatRef}
+            label={seat}
           />
         </Grid>
         <Grid
@@ -92,10 +106,10 @@ const UpsertReviewDialog = ({
         >
           <div className="musical-field">Content:</div>
           <TextField
-            label="Content"
             className="review-text-field"
             size="small"
             inputRef={contentRef}
+            label={content}
           />
         </Grid>
         <Grid
@@ -122,7 +136,10 @@ const UpsertReviewDialog = ({
         justifyContent="flex-end"
         alignItems="center"
       >
-        <Button id="save-review-btn" onClick={upsertReview}>
+        <Button
+          id="save-review-btn"
+          onClick={mood == "add" ? addReview : updateReview}
+        >
           {mood == "add" ? "save" : "update"}
         </Button>
       </Grid>

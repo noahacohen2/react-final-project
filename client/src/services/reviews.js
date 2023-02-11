@@ -46,7 +46,7 @@ export default {
       });
   },
 
-  async upsertReview(
+  async addReview(
     reviewName,
     reviewSeat,
     reviewContent,
