@@ -94,4 +94,15 @@ router.delete("/", (req, res) => {
     });
 });
 
+router.put("/", (req, res) => {
+  let review = req.body;
+
+  Review.updateOne({ _id: ObjectID(review._id) }, { $set: review }).then(() => {
+    res.end()
+  }).catch(e => {
+    console.log(e);
+    res.end();
+  })
+});
+
 module.exports = router;

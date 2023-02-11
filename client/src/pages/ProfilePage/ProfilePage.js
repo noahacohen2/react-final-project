@@ -13,18 +13,21 @@ const ProfilePage = () => {
   let [showReviews, setShowReviews] = useState(true);
   let [userReviews, setUserReviews] = useState([]);
   const [user, setUser] = useContext(AppContext).user;
+  const [isLoading, setLoading] = useContext(AppContext).isLoading;
 
   const changeViewState = () => {
     setShowReviews(!showReviews);
   };
 
   useEffect(() => {
-    console.log(user)
+    setLoading(true);
     const getReviews = (userID) => {
       reviewsService.getUserReviews(userID).then((res) => {
         setUserReviews(res.data);
       }).catch((error) => {
         console.log(error);
+      }).finally(() => {
+        setLoading(false);
       });
     };
     if (user && user.localId) {
