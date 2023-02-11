@@ -1,5 +1,17 @@
+#the-card {
+  width: 950px;
+  height: 500px;
+  margin: auto;
+  margin-top: 70px !important;
+  display: flex;
+}
+
 .musical-details-card {
-  width: 100%;
+  width: 550px;
+}
+
+#right-side-card {
+  width: 400px;
 }
 
 .musical-details {
@@ -28,20 +40,8 @@
   margin-left: 20px;
 }
 
-#right-side-card {
-  max-width: 500px;
-}
-
-#the-card {
-  width: 950px;
-  height: 500px;
-  margin: auto;
-  margin-top: 70px !important;
-  display: flex;
-}
-
 #add-review-btn {
-  margin-top: 80px !important;
+  margin-top: 20px !important;
   margin-left: 20px;
   border-radius: 50px !important;
   background-color: #ef1659 !important;
