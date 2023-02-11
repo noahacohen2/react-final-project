@@ -11,6 +11,7 @@ import reviewsService from "../../Services/reviews";
 import AppContext from "../../Context/Context";
 
 const UpsertReviewDialog = ({
+  mood,
   isOpen,
   closeDialog,
   musicalName,
@@ -48,7 +49,7 @@ const UpsertReviewDialog = ({
       open={isOpen}
       fullWidth
     >
-      <div id="dialog-title">New Review</div>
+      <div id="dialog-title">{mood == "add" ? "New" : "Update"} Review</div>
       <Grid
         container
         direction="column"
@@ -122,7 +123,7 @@ const UpsertReviewDialog = ({
         alignItems="center"
       >
         <Button id="save-review-btn" onClick={upsertReview}>
-          save
+          {mood == "add" ? "save" : "update"}
         </Button>
       </Grid>
     </Dialog>

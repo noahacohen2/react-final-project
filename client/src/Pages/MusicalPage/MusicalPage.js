@@ -14,14 +14,15 @@ import MusicalRatingChart from "../../Components/MusicalRatingChart/MusicalRatin
 import Reviews from "../../Components/Reviews/Reviews";
 import reviewsService from "../../Services/reviews";
 import Button from "@mui/material/Button";
-import AddReviewDialog from "../../Components/AddReviewDialog/UpsertReviewDialog";
+import UpsertReviewDialog from "../../Components/UpsertReviewDialog/UpsertReviewDialog";
 
 const MusicalPage = () => {
   const [currentMusicalId, setCurrentMusicalId] =
     useContext(AppContext).currentMusical;
   const [musicals, setMusicals] = useContext(AppContext).musicals;
   const [currMusical, setCurrMusical] = useState();
-  const [isAddReviewDialogOPen, setIsAddReviewDialogOPen] = useState(false);
+  const [isUpsertReviewDialogOpen, setIsUpsertReviewDialogOpen] =
+    useState(false);
   const [musicalReviews, setMusicalReviews] = useState();
   const [user, setUser] = useContext(AppContext).user;
 
@@ -112,7 +113,7 @@ const MusicalPage = () => {
               <Button
                 id="add-review-btn"
                 onClick={() => {
-                  setIsAddReviewDialogOPen(true);
+                  setIsUpsertReviewDialogOpen(true);
                 }}
               >
                 Add Review +
@@ -130,12 +131,13 @@ const MusicalPage = () => {
           <Reviews cardSize={220} reviews={musicalReviews} />
         </Grid>
       </Card>
-      <AddReviewDialog
+      <UpsertReviewDialog
+        mood="add"
         musicalName={currMusical?.Name}
         musicalEventId={currMusical?.EventId}
-        isOpen={isAddReviewDialogOPen}
+        isOpen={isUpsertReviewDialogOpen}
         closeDialog={() => {
-          setIsAddReviewDialogOPen(false);
+          setIsUpsertReviewDialogOpen(false);
         }}
       />
     </>
