@@ -13,6 +13,7 @@ const UserAuthForm = ({ isLogin, message, setMessage }) => {
     const nameInputRef = useRef();
     const navigate = useNavigate();
     const [user, setUser] = useContext(AppContext).user;
+    const [isLoading, setLoading] = useContext(AppContext).isLoading;
 
     useEffect(() => {
         if (user) {
@@ -26,7 +27,7 @@ const UserAuthForm = ({ isLogin, message, setMessage }) => {
         let enteredName;
 
         setMessage("");
-
+        setLoading(true);
         if (isLogin) {
             authService
                 .LogIn({ email: enteredEmail, password: enteredPassword })
@@ -36,6 +37,8 @@ const UserAuthForm = ({ isLogin, message, setMessage }) => {
                 })
                 .catch((err) => {
                     setMessage("We couldn't find your account");
+                }).finally(() => {
+                    setLoading(false)
                 });
         } else {
             enteredName = nameInputRef.current.value;
@@ -55,6 +58,8 @@ const UserAuthForm = ({ isLogin, message, setMessage }) => {
                     setMessage(
                         "Try another email, note that the email must be a valid email"
                     );
+                }).finally(() => {
+                    setLoading(false);
                 });
         }
     };
