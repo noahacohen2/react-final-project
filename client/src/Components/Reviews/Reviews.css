@@ -6,7 +6,6 @@
 }
 
 .reviews-List {
-  /* max-height: 425px; */
   overflow-y: scroll;
 }
 

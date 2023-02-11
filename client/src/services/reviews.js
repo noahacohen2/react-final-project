@@ -54,7 +54,6 @@ export default {
     reviewUser,
     musicalEventId
   ) {
-    debugger;
     return await api
       .post("/reviews", {
         params: {
