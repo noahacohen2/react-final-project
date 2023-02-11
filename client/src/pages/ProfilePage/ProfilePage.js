@@ -19,6 +19,7 @@ const ProfilePage = () => {
   };
 
   useEffect(() => {
+    console.log(user)
     const getReviews = (userID) => {
       reviewsService.getUserReviews(userID).then((res) => {
         setUserReviews(res.data);
@@ -26,9 +27,10 @@ const ProfilePage = () => {
         console.log(error);
       });
     };
-
-    getReviews(user.localId)
-  }, []);
+    if (user && user.localId) {
+      getReviews(user.localId)
+    }
+  }, [user]);
 
   return (
     <div>
@@ -37,6 +39,7 @@ const ProfilePage = () => {
         <UserDetails
           onChangePassowrdClick={changeViewState}
           showBtn={showReviews}
+          reviewsNumber={userReviews.length}
         ></UserDetails>
         <Divider orientation="vertical" flexItem></Divider>
         {showReviews && (

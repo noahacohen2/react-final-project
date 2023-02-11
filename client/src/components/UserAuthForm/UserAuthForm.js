@@ -10,6 +10,7 @@ const UserAuthForm = ({ isLogin, message, setMessage }) => {
     let googleImg = require("../../Assets/search.png");
     const emailInputRef = useRef();
     const passwordInputRef = useRef();
+    const nameInputRef = useRef();
     const navigate = useNavigate();
     const [user, setUser] = useContext(AppContext).user;
 
@@ -22,6 +23,8 @@ const UserAuthForm = ({ isLogin, message, setMessage }) => {
     const clickHandler = () => {
         const enteredEmail = emailInputRef.current.value;
         const enteredPassword = passwordInputRef.current.value;
+        let enteredName;
+
         setMessage("");
 
         if (isLogin) {
@@ -35,8 +38,15 @@ const UserAuthForm = ({ isLogin, message, setMessage }) => {
                     setMessage("We couldn't find your account");
                 });
         } else {
+            enteredName = nameInputRef.current.value;
+
+            if (enteredName == "") {
+                setMessage("Please enter your name");
+                return;
+            }
+
             authService
-                .SignUp({ email: enteredEmail, password: enteredPassword })
+                .SignUp({ email: enteredEmail, password: enteredPassword, name: enteredName })
                 .then((signUpData) => {
                     setUser(signUpData);
                     navigate("/AllMusicals", { replace: true });
@@ -68,6 +78,13 @@ const UserAuthForm = ({ isLogin, message, setMessage }) => {
                             fullWidth
                             inputRef={emailInputRef}
                         ></TextField>
+                        {!isLogin && (<TextField
+                            label="Name"
+                            className="formTextField"
+                            size="small"
+                            fullWidth
+                            inputRef={nameInputRef}
+                        ></TextField>)}
                         <TextField
                             label="Password"
                             className="formTextField"

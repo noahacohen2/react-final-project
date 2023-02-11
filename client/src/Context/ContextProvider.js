@@ -7,6 +7,7 @@ const ConetxtProvider = ({ children }) => {
   const [currentMusicalId, setCurrentMusicalId] = useState();
 
   useEffect(() => {
+    console.log("user effect")
     const getUser = async () => {
       if (localStorage.getItem("user")) {
         return await setUser(JSON.parse(localStorage.getItem("user")));
