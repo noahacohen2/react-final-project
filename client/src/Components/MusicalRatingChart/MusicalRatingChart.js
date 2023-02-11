@@ -23,8 +23,16 @@ ChartJS.register(
 );
 
 const MusicalRatingChart = ({ musicalEventId }) => {
-  const [labels, setLabels] = useState([]);
-  const [stars, setStars] = useState([]);
+  const [cahrtData, setCahrtData] = useState({
+    labels: [],
+    datasets: [
+      {
+        label: "stars",
+        data: [],
+        backgroundColor: "#F11551",
+      },
+    ],
+  });
 
   const options = {
     responsive: true,
@@ -36,42 +44,40 @@ const MusicalRatingChart = ({ musicalEventId }) => {
     },
   };
 
-  const data = {
-    labels: stars,
-    datasets: [
-      {
-        label: "stars",
-        data: labels,
-        backgroundColor: "#F11551",
-      },
-    ],
-  };
-
   useEffect(() => {
-    reviewsService
-      .getMusicalReviewsRatingAmount(musicalEventId)
-      .then((res) => {
-        let amountOfStars = res.data;
-        let tempLabels = [];
-        let tempStars = [];
-        amountOfStars.sort((a, b) => {
-          return a._id - b._id;
+    if (musicalEventId)
+      reviewsService
+        .getMusicalReviewsRatingAmount(musicalEventId)
+        .then((res) => {
+          let amountOfStars = res.data;
+          let tempLabels = [];
+          let tempStars = [];
+          amountOfStars.sort((a, b) => {
+            return a._id - b._id;
+          });
+
+          amountOfStars.map((couple) => {
+            tempLabels.push(couple.count);
+            tempStars.push(couple._id);
+          });
+
+          setCahrtData({
+            labels: tempStars,
+            datasets: [
+              {
+                label: "stars",
+                data: tempLabels,
+                backgroundColor: "#F11551",
+              },
+            ],
+          });
+        })
+        .catch((error) => {
+          console.log(error);
         });
+  }, [musicalEventId]);
 
-        amountOfStars.map((couple) => {
-          tempLabels.push(couple.count);
-          tempStars.push(couple._id);
-        });
-
-        setLabels(tempLabels);
-        setStars(tempStars);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [labels]);
-
-  return <Bar options={options} data={data} />;
+  return <Bar options={options} data={cahrtData} />;
 };
 
 export default MusicalRatingChart;

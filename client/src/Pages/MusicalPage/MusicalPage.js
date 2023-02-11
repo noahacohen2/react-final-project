@@ -30,7 +30,7 @@ const MusicalPage = () => {
     const musical = musicals.find((musical) => musical._id == currentMusicalId);
     setCurrMusical(musical);
     reviewsService
-      .getReviews(musical.EventId)
+      .getMusicalReviews(musical.EventId)
       .then((res) => {
         setMusicalReviews(res.data);
       })

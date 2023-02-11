@@ -13,16 +13,8 @@ const venueSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
-  City: {
-    type: String,
-    require: true,
-  },
-  ImageUrl: {
-    type: String,
-    require: true,
-  },
   Info: {
-    type: Number,
+    type: String,
     require: true,
   },
 });

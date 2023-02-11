@@ -19,7 +19,12 @@ const UpBar = () => {
 
   return (
     <Toolbar id="up-bar">
-      <div id="site-name">Olaf</div>
+      <Link className="up-bar-link" to="/AllMusicals">
+        <div id="site-name">Olaf</div>
+      </Link>
+      <Link className="up-bar-link " to="/AllMusicals">
+        <Button className="all-musicals-btn">All musicals</Button>
+      </Link>
       <Grid
         container
         direction="row"

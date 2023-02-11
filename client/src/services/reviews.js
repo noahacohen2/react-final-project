@@ -1,7 +1,7 @@
-import api from "../config/api";
+import api from "../Config/api";
 
 export default {
-  async getReviews(currentMusicalId) {
+  async getMusicalReviews(currentMusicalId) {
     return await api
       .get("/reviews", { params: { musicalId: currentMusicalId } })
       .then((res) => {
@@ -25,7 +25,7 @@ export default {
 
   async getUserReviews(userID) {
     return await api
-      .get("/reviews/" + userID, {})
+      .get("/reviews/" + userID)
       .then((res) => {
         return res;
       })
@@ -43,6 +43,17 @@ export default {
       .catch((error) => {
         console.log(error);
         return false;
+      });
+  },
+
+  async getReviews() {
+    return await api
+      .get("/reviews", {})
+      .then((res) => {
+        return res;
+      })
+      .catch((error) => {
+        console.log(error);
       });
   },
 
