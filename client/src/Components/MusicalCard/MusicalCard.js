@@ -18,13 +18,10 @@ const MusicalCard = ({ musical }) => {
       }}
     >
       <img id="musical-card-img" src={musical.MainImageUrl} />
-      <div id="musical-card-title">{musical.Name}</div>
-      <div>Min Price: {musical.EventMinimumPrice}</div>
-      <div>Min Age: {musical.MinimumAge}</div>
-      <div>City: {musical.City}</div>
-      {
-        // TODO
-      }
+      <span id="musical-card-title">{musical.Name} </span>
+      <span>({musical.MinimumAge}+)</span>
+      <div className="musical-card-data">{musical.City}</div>
+      <div className="musical-card-data">From {musical.EventMinimumPrice}$</div>
     </div>
   );
 };

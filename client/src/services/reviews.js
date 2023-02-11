@@ -24,11 +24,14 @@ export default {
   },
 
   async getUserReviews(userID) {
-    return await api.get("/reviews/" + userID).then((res) => {
-      return res;
-    }).catch((error) => {
-      console.log(error);
-    });
+    return await api
+      .get("/reviews/" + userID)
+      .then((res) => {
+        return res;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
 
   async deleteReview(review) {
@@ -54,4 +57,30 @@ export default {
       });
   },
 
+  async addReview(
+    reviewName,
+    reviewSeat,
+    reviewContent,
+    reviewStars,
+    reviewUser,
+    musicalEventId
+  ) {
+    return await api
+      .post("/reviews", {
+        params: {
+          reviewName,
+          reviewSeat,
+          reviewContent,
+          reviewStars,
+          reviewUser,
+          musicalEventId,
+        },
+      })
+      .then((res) => {
+        return res;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
 };

@@ -17,36 +17,42 @@ const MusicalsPage = () => {
   const [filterArray, setFilterArray] = useState([]);
   const [currFilter, setCurrFilter] = useState([]);
 
-
   const [isFiltePopupOpen, setIsFiltePopupOpen] = useState(false);
 
   useEffect(() => {
     const setFilterOptionalValues = (filterKey, tempFilter, AllMusicals) => {
-      let currFilter = tempFilter.find(fil => fil.key == filterKey);
-      currFilter.optionalValues = [...new Set(AllMusicals.map((musical) => musical[filterKey]))];
-      console.log("filter values", currFilter.optionalValues)
+      let currFilter = tempFilter.find((fil) => fil.key == filterKey);
+      currFilter.optionalValues = [
+        ...new Set(AllMusicals.map((musical) => musical[filterKey])),
+      ];
     };
     let tempFilter = [
       {
-        key: 'City', title: 'City', optionalValues: []
+        key: "City",
+        title: "City",
+        optionalValues: [],
       },
       {
-        key: 'MinimumAge', title: 'Minimum age', optionalValues: []
+        key: "MinimumAge",
+        title: "Minimum age",
+        optionalValues: [],
       },
       {
-        key: 'EventMinimumPrice', title: 'Price', optionalValues: []
-      }
-    ]
+        key: "EventMinimumPrice",
+        title: "Price",
+        optionalValues: [],
+      },
+    ];
     const getMusicals = () => {
       musicalsService
         .getMusicals()
         .then((res) => {
           setMusicals(res.data);
 
-          setFilterOptionalValues('City', tempFilter, res.data);
-          setFilterOptionalValues('MinimumAge', tempFilter, res.data);
-          setFilterOptionalValues('EventMinimumPrice', tempFilter, res.data);
-          setFilterArray(tempFilter)
+          setFilterOptionalValues("City", tempFilter, res.data);
+          setFilterOptionalValues("MinimumAge", tempFilter, res.data);
+          setFilterOptionalValues("EventMinimumPrice", tempFilter, res.data);
+          setFilterArray(tempFilter);
         })
         .catch((error) => {
           console.log(error);
@@ -62,12 +68,17 @@ const MusicalsPage = () => {
 
   const checkFilterParam = (musical) => {
     let isOk = true;
-    filterArray.forEach(filter => {
+    filterArray.forEach((filter) => {
       let currentFilterValues;
-      if (currFilter.find(curr => curr.key == filter.key)) {
-        currentFilterValues = currFilter.find(curr => curr.key == filter.key).selectedValues;
+      if (currFilter.find((curr) => curr.key == filter.key)) {
+        currentFilterValues = currFilter.find(
+          (curr) => curr.key == filter.key
+        ).selectedValues;
 
-        isOk = isOk && (currentFilterValues.length == 0 || currentFilterValues.some(value => value === musical[filter.key]));
+        isOk =
+          isOk &&
+          (currentFilterValues.length == 0 ||
+            currentFilterValues.some((value) => value === musical[filter.key]));
       }
     });
 
@@ -75,14 +86,16 @@ const MusicalsPage = () => {
   };
 
   const Musicals = () => {
-    const musicalsBySearch = musicals.filter(musical => {
-      if ((currFilter.length != 0 && checkFilterParam(musical)) ||
-        currFilter.length == 0) {
+    const musicalsBySearch = musicals.filter((musical) => {
+      if (
+        (currFilter.length != 0 && checkFilterParam(musical)) ||
+        currFilter.length == 0
+      ) {
         if (musical.Name.toLowerCase().includes(searchValue.toLowerCase())) {
           return true;
         }
       }
-    })
+    });
 
     return musicalsBySearch?.map((musical, index) => (
       <MusicalCard key={index} musical={musical} />

@@ -1,0 +1,34 @@
+#save-review-btn {
+  margin: 20px;
+  border-radius: 50px;
+  background-color: #ef1659;
+  color: white;
+  width: 130px;
+  font-weight: 700;
+  font-size: 14px;
+  height: 23px;
+}
+
+#dialog-title {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.musical-field {
+  padding-top: 20px;
+  padding-left: 20px;
+  font-size: large;
+  width: 80px;
+}
+
+.rating-stars {
+  padding-top: 20px;
+}
+
+.review-text-field {
+  margin-top: 25px !important;
+}
+
+.disabled {
+  background-color: #f2f2f2;
+}

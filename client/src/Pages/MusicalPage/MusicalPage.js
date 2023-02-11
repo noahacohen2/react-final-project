@@ -13,12 +13,16 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import MusicalRatingChart from "../../Components/MusicalRatingChart/MusicalRatingChart";
 import Reviews from "../../Components/Reviews/Reviews";
 import reviewsService from "../../Services/reviews";
+import Button from "@mui/material/Button";
+import UpsertReviewDialog from "../../Components/UpsertReviewDialog/UpsertReviewDialog";
 
 const MusicalPage = () => {
   const [currentMusicalId, setCurrentMusicalId] =
     useContext(AppContext).currentMusical;
   const [musicals, setMusicals] = useContext(AppContext).musicals;
   const [currMusical, setCurrMusical] = useState();
+  const [isUpsertReviewDialogOpen, setIsUpsertReviewDialogOpen] =
+    useState(false);
   const [musicalReviews, setMusicalReviews] = useState();
   const [user, setUser] = useContext(AppContext).user;
 
@@ -75,7 +79,10 @@ const MusicalPage = () => {
               alignItems="flex-start"
             >
               <InfoOutlinedIcon className="musical-details" />
-              <div className="musical-details">{currMusical?.Description}</div>
+              <div className="musical-details">
+                {currMusical?.Description.substring(0, 300)}
+                {currMusical?.Description.length > 300 ? "..." : ""}
+              </div>
             </Grid>
             <Grid
               container
@@ -97,6 +104,21 @@ const MusicalPage = () => {
               <LocationOnOutlinedIcon className="musical-details" />
               <div className="musical-details">{currMusical?.City}</div>
             </Grid>
+            <Grid
+              container
+              direction="row"
+              justifyContent="flex-start"
+              alignItems="flex-end"
+            >
+              <Button
+                id="add-review-btn"
+                onClick={() => {
+                  setIsUpsertReviewDialogOpen(true);
+                }}
+              >
+                Add Review +
+              </Button>
+            </Grid>
           </Grid>
         </Grid>
         <Divider orientation="vertical" flexItem />
@@ -106,9 +128,18 @@ const MusicalPage = () => {
           id="right-side-card"
         >
           <MusicalRatingChart musicalEventId={currMusical?.EventId} />
-          <Reviews reviews={musicalReviews} />
+          <Reviews cardSize={220} reviews={musicalReviews} />
         </Grid>
       </Card>
+      <UpsertReviewDialog
+        mood="add"
+        musicalName={currMusical?.Name}
+        musicalEventId={currMusical?.EventId}
+        isOpen={isUpsertReviewDialogOpen}
+        closeDialog={() => {
+          setIsUpsertReviewDialogOpen(false);
+        }}
+      />
     </>
   );
 };
