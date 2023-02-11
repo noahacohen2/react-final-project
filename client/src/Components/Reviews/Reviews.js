@@ -26,7 +26,7 @@ const Reviews = ({ reviews, setReviews, showActions, cardSize }) => {
     <div className="reviews">
       <div className="reviews-Title">Reviews</div>
       <Divider variant="middle" />
-      <List className="reviews-List" style={{ "max-height": cardSize }}>
+      <List className="reviews-List" style={{ maxHeight: cardSize }}>
         {reviews?.map((review, index) => {
           return (
             <>

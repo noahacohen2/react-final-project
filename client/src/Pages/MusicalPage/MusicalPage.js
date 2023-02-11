@@ -78,7 +78,10 @@ const MusicalPage = () => {
               alignItems="flex-start"
             >
               <InfoOutlinedIcon className="musical-details" />
-              <div className="musical-details">{currMusical?.Description}</div>
+              <div className="musical-details">
+                {currMusical?.Description.substring(0, 300)}
+                {currMusical?.Description.length > 300 ? "..." : ""}
+              </div>
             </Grid>
             <Grid
               container
@@ -124,7 +127,7 @@ const MusicalPage = () => {
           id="right-side-card"
         >
           <MusicalRatingChart musicalEventId={currMusical?.EventId} />
-          <Reviews cardSize={180} reviews={musicalReviews} />
+          <Reviews cardSize={220} reviews={musicalReviews} />
         </Grid>
       </Card>
       <AddReviewDialog
