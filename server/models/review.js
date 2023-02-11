@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const reviewSchema = new mongoose.Schema({
-  user_id: {
+  User_id: {
     type: String,
     require: true,
   },

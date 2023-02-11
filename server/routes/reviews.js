@@ -103,7 +103,7 @@ router.post("/", (req, res) => {
       Content: review.reviewContent,
       EventId: review.musicalEventId,
       Seat: review.reviewSeat,
-      user_id: review.reviewUser,
+      User_id: review.reviewUser,
     },
   ])
     .then(() => {
