@@ -10,8 +10,10 @@ const UserAuthForm = ({ isLogin, message, setMessage }) => {
     let googleImg = require("../../Assets/search.png");
     const emailInputRef = useRef();
     const passwordInputRef = useRef();
+    const nameInputRef = useRef();
     const navigate = useNavigate();
     const [user, setUser] = useContext(AppContext).user;
+    const [isLoading, setLoading] = useContext(AppContext).isLoading;
 
     useEffect(() => {
         if (user) {
@@ -22,8 +24,10 @@ const UserAuthForm = ({ isLogin, message, setMessage }) => {
     const clickHandler = () => {
         const enteredEmail = emailInputRef.current.value;
         const enteredPassword = passwordInputRef.current.value;
-        setMessage("");
+        let enteredName;
 
+        setMessage("");
+        setLoading(true);
         if (isLogin) {
             authService
                 .LogIn({ email: enteredEmail, password: enteredPassword })
@@ -33,18 +37,29 @@ const UserAuthForm = ({ isLogin, message, setMessage }) => {
                 })
                 .catch((err) => {
                     setMessage("We couldn't find your account");
+                }).finally(() => {
+                    setLoading(false)
                 });
         } else {
+            enteredName = nameInputRef.current.value;
+
+            if (enteredName == "") {
+                setMessage("Please enter your name");
+                return;
+            }
+
             authService
-                .SignUp({ email: enteredEmail, password: enteredPassword })
-                .then((data) => {
-                    setUser(data);
+                .SignUp({ email: enteredEmail, password: enteredPassword, name: enteredName })
+                .then((signUpData) => {
+                    setUser(signUpData);
                     navigate("/AllMusicals", { replace: true });
                 })
                 .catch((err) => {
                     setMessage(
                         "Try another email, note that the email must be a valid email"
                     );
+                }).finally(() => {
+                    setLoading(false);
                 });
         }
     };
@@ -68,6 +83,13 @@ const UserAuthForm = ({ isLogin, message, setMessage }) => {
                             fullWidth
                             inputRef={emailInputRef}
                         ></TextField>
+                        {!isLogin && (<TextField
+                            label="Name"
+                            className="formTextField"
+                            size="small"
+                            fullWidth
+                            inputRef={nameInputRef}
+                        ></TextField>)}
                         <TextField
                             label="Password"
                             className="formTextField"

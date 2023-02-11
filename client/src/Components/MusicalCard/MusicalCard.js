@@ -14,7 +14,7 @@ const MusicalCard = ({ musical }) => {
       id="musical-card"
       onClick={() => {
         setCurrentMusical(musical._id);
-        navigate("/Musical", { replace: true });
+        navigate("/Musical");
       }}
     >
       <img id="musical-card-img" src={musical.MainImageUrl} />

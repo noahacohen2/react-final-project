@@ -13,26 +13,27 @@ const ProfilePage = () => {
   let [showReviews, setShowReviews] = useState(true);
   let [userReviews, setUserReviews] = useState([]);
   const [user, setUser] = useContext(AppContext).user;
+  const [isLoading, setLoading] = useContext(AppContext).isLoading;
 
   const changeViewState = () => {
     setShowReviews(!showReviews);
   };
 
   useEffect(() => {
+    setLoading(true);
     const getReviews = (userID) => {
-      reviewsService
-        .getUserReviews(userID)
-        .then((res) => {
-          setUserReviews(res.data);
-          console.log(res.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      reviewsService.getUserReviews(userID).then((res) => {
+        setUserReviews(res.data);
+      }).catch((error) => {
+        console.log(error);
+      }).finally(() => {
+        setLoading(false);
+      });
     };
-
-    getReviews(user.localId);
-  }, []);
+    if (user && user.localId) {
+      getReviews(user.localId)
+    }
+  }, [user]);
 
   return (
     <div>
@@ -41,6 +42,7 @@ const ProfilePage = () => {
         <UserDetails
           onChangePassowrdClick={changeViewState}
           showBtn={showReviews}
+          reviewsNumber={userReviews.length}
         ></UserDetails>
         <Divider orientation="vertical" flexItem></Divider>
         {showReviews && (
@@ -48,6 +50,7 @@ const ProfilePage = () => {
             reviews={userReviews}
             setReviews={setUserReviews}
             showActions={true}
+            noDataText="You're probably new here, & you haven't reviewed any musicals yet"
           ></Reviews>
         )}
         {!showReviews && (

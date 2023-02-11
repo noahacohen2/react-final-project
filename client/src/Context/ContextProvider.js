@@ -5,8 +5,11 @@ const ConetxtProvider = ({ children }) => {
   const [user, setUser] = useState(undefined);
   const [musicals, setMusicals] = useState([]);
   const [currentMusicalId, setCurrentMusicalId] = useState();
+  const [isLoading, setLoading] = useState(false);
+
 
   useEffect(() => {
+    console.log("user effect")
     const getUser = async () => {
       if (localStorage.getItem("user")) {
         return await setUser(JSON.parse(localStorage.getItem("user")));
@@ -27,6 +30,7 @@ const ConetxtProvider = ({ children }) => {
     user: [user, setUserStorage],
     musicals: [musicals, setMusicals],
     currentMusical: [currentMusicalId, setCurrentMusicalId],
+    isLoading: [isLoading, setLoading]
   };
 
   return (

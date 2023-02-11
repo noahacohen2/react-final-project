@@ -14,36 +14,39 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 
 
-const Reviews = ({ reviews, setReviews, showActions }) => {
+const Reviews = ({ reviews, setReviews, showActions, noDataText }) => {
   const [isFiltePopupOpen, setIsFiltePopupOpen] = useState(false);
   const [filterArray, setFilterArray] = useState([]);
   const [currFilter, setCurrFilter] = useState([]);
 
   let userAvatar = require('../../Assets/olafAvatar.jpg');
+  let noDataImg = require("../../Assets/noReviews.png")
 
   useEffect(() => {
-    const setFilterOptionalValues = (filterKey, tempFilter) => {
-      let currFilter = tempFilter.find(fil => fil.key == filterKey);
-      currFilter.optionalValues = [...new Set(reviews.map((review) => review[filterKey]))];
-    };
+    if (reviews) {
+      const setFilterOptionalValues = (filterKey, tempFilter) => {
+        let currFilter = tempFilter.find(fil => fil.key == filterKey);
+        currFilter.optionalValues = [...new Set(reviews.map((review) => review[filterKey]))];
+      };
 
-    let tempFilter = [
-      {
-        key: 'Seat', title: 'Seat', optionalValues: []
-      },
-      {
-        key: 'Stars', title: 'Stars', optionalValues: []
-      },
-      {
-        key: 'Musical', title: 'Musical', optionalValues: []
-      }
-    ]
+      let tempFilter = [
+        {
+          key: 'Seat', title: 'Seat', optionalValues: []
+        },
+        {
+          key: 'Stars', title: 'Stars', optionalValues: []
+        },
+        {
+          key: 'Musical', title: 'Musical', optionalValues: []
+        }
+      ]
 
-    setFilterOptionalValues('Seat', tempFilter);
-    setFilterOptionalValues('Stars', tempFilter);
-    setFilterOptionalValues('Musical', tempFilter);
+      setFilterOptionalValues('Seat', tempFilter);
+      setFilterOptionalValues('Stars', tempFilter);
+      setFilterOptionalValues('Musical', tempFilter);
 
-    setFilterArray(tempFilter)
+      setFilterArray(tempFilter)
+    }
   }, [reviews])
 
   const openFilterPopup = () => {
@@ -73,7 +76,7 @@ const Reviews = ({ reviews, setReviews, showActions }) => {
   }
 
   const filteredReviews = () => {
-    return reviews.filter(review => {
+    return reviews?.filter(review => {
       return ((currFilter.length != 0 && checkFilterParam(review)) ||
         currFilter.length == 0)
     })
@@ -81,7 +84,6 @@ const Reviews = ({ reviews, setReviews, showActions }) => {
 
   return (
     <div className="reviews">
-
       {showActions && (<FilterDialog
         isOpen={isFiltePopupOpen}
         closeDialog={() => {
@@ -99,42 +101,57 @@ const Reviews = ({ reviews, setReviews, showActions }) => {
         />
       </div>
       <Divider variant="middle" />
-      <List className="reviews-List">
-        {filteredReviews()?.map((review, index) => {
-          return (
-            <div key={index}>
-              <ListItem
-                secondaryAction={
-                  <>
-                    {
-                      showActions && (
-                        <div className="secondary-action">
-                          <IconButton edge="end" aria-label="update">
-                            <EditIcon />
-                          </IconButton>
-                          <IconButton
-                            edge="end"
-                            aria-label="delete"
-                            onClick={() => handleDeleteReview(review)}
-                          >
-                            <DeleteIcon />
-                          </IconButton>
-                        </div>
-                      )
+      {filteredReviews()?.length == 0 && (
+        <>
+          <div className="center-items">
+            <img className="no-reviews-img" src={noDataImg} />
+          </div>
+          {noDataText?.split('&')?.map((text) => {
+            return (<>
+              <div className="reviews-no-data-text">{text}</div>
+            </>)
+          })}
+        </>
+      )}
+      {filteredReviews()?.length > 0 &&
+        (
+          <List className="reviews-List">
+            {filteredReviews()?.map((review, index) => {
+              return (
+                <div key={index}>
+                  <ListItem
+                    secondaryAction={
+                      <>
+                        {
+                          showActions && (
+                            <div className="secondary-action">
+                              <IconButton edge="end" aria-label="update">
+                                <EditIcon />
+                              </IconButton>
+                              <IconButton
+                                edge="end"
+                                aria-label="delete"
+                                onClick={() => handleDeleteReview(review)}
+                              >
+                                <DeleteIcon />
+                              </IconButton>
+                            </div>
+                          )
+                        }
+                      </>
                     }
-                  </>
-                }
-              >
-                <ListItemAvatar>
-                  <Avatar src={userAvatar}></Avatar>
-                </ListItemAvatar>
-                <ReviewRow review={review}></ReviewRow>
-              </ListItem >
-              <Divider variant="inset" />
-            </div>
-          )
-        })}
-      </List >
+                  >
+                    <ListItemAvatar>
+                      <Avatar src={userAvatar}></Avatar>
+                    </ListItemAvatar>
+                    <ReviewRow review={review}></ReviewRow>
+                  </ListItem >
+                  <Divider variant="inset" />
+                </div>
+              )
+            })}
+          </List >
+        )}
     </div >
   );
 };

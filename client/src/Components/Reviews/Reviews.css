@@ -23,3 +23,20 @@
     font-size: 30px !important;
     cursor: pointer;
 }
+
+.no-reviews-img {
+    width: 350px;
+    margin-top: 50px;
+}
+
+.center-items {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.reviews-no-data-text {
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+}

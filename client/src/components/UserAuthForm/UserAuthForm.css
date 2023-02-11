@@ -44,8 +44,8 @@
 
 .cardContainer {
     min-height: 164px !important;
-    height: 164px !important;
-    margin-top: 20px;
+    height: 195px !important;
+    /* margin-top: 5px; */
 
 }
 
@@ -59,7 +59,7 @@
 }
 
 .submitBtn {
-    margin-top: 25px !important;
+    margin-top: 15px !important;
     border-radius: 50px !important;
     background-color: #EF1659 !important;
     color: white;

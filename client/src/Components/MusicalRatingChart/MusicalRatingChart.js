@@ -69,7 +69,8 @@ const MusicalRatingChart = ({ musicalEventId }) => {
       .catch((error) => {
         console.log(error);
       });
-  }, [labels]);
+  }, []);
+  // labels
 
   return <Bar options={options} data={data} />;
 };
