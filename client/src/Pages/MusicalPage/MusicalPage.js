@@ -128,7 +128,13 @@ const MusicalPage = () => {
           id="right-side-card"
         >
           <MusicalRatingChart musicalEventId={currMusical?.EventId} />
-          <Reviews cardSize={220} reviews={musicalReviews} />
+          <Reviews
+            cardSize={220}
+            reviews={musicalReviews}
+            showActions={true}
+            setReviews={setMusicalReviews}
+            noDataText="There are no reviews for this musical at the moment"
+          />
         </Grid>
       </Card>
       <UpsertReviewDialog
