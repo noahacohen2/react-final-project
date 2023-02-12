@@ -31,20 +31,11 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  const { sendMessage, lastMessage, readyState } = useWebSocket(WS_URL);
+  // const { sendMessage, lastMessage, readyState } = useWebSocket(WS_URL);
 
-  useWebSocket(WS_URL, {
-    onOpen: () => {
-      console.log('WebSocket connection established.');
-    },
-    onMessage: (review) => {
-      console.log("review", review)
-    }
-  });
-
-  useEffect(() => {
-    sendMessage("daniel")
-  }, []);
+  // useEffect(() => {
+  //   sendMessage("daniel")
+  // }, []);
 
   return (
     <>

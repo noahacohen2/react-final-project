@@ -8,6 +8,7 @@ const musicals = require("./routes/musicals");
 const reviews = require("./routes/reviews");
 const venues = require("./routes/venues");
 const Musical = require("./models/musical.js");
+const reviewsBL = require("./BL/reviews");
 
 const corsOptions = {
     origin: "http://localhost:3001",
@@ -42,21 +43,20 @@ server.listen(port, () => {
 });
 
 
-const broadcastReview = (review) => {
-    const data = JSON.stringify(review);
+const broadcastReview = async (musicalId) => {
+    // const data = JSON.stringify(review);
+    let musicalReviews = await reviewsBL.getReviewsByMusical(musicalId)
+    console.log(musicalReviews)
     for (let userId in clients) {
         let client = clients[userId];
-        // if (client.readyState === WebSocket.OPEN) {
-        client.send(data);
-        // }
+        client.send(JSON.stringify(musicalReviews));
     }
     console.log("broadcastReview")
-
 }
 
-const handleReview = (review, userId) => {
-    console.log("handleReview", review.toString())
-    broadcastReview({ name: "noa" })
+const handleReview = (musicalId) => {
+    console.log("handleReview", musicalId.toString())
+    broadcastReview(musicalId.toString())
 }
 
 // I'm maintaining all active connections in this object

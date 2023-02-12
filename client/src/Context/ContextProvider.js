@@ -1,11 +1,20 @@
 import AppContext from "./Context";
 import { useState, useEffect } from "react";
+import useWebSocket from 'react-use-websocket';
+
+const WS_URL = 'ws://127.0.0.1:8000';
 
 const ConetxtProvider = ({ children }) => {
   const [user, setUser] = useState(undefined);
   const [musicals, setMusicals] = useState([]);
   const [currentMusicalId, setCurrentMusicalId] = useState();
   const [isLoading, setLoading] = useState(false);
+
+  const { getWebSocket } = useWebSocket(WS_URL, {
+    onOpen: () => {
+      console.log('WebSocket connection established.');
+    }
+  });
 
   useEffect(() => {
     const getUser = async () => {
@@ -29,6 +38,7 @@ const ConetxtProvider = ({ children }) => {
     musicals: [musicals, setMusicals],
     currentMusical: [currentMusicalId, setCurrentMusicalId],
     isLoading: [isLoading, setLoading],
+    WebSocket: [getWebSocket]
   };
 
   return (
