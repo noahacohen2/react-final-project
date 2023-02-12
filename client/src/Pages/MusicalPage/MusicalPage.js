@@ -131,7 +131,6 @@ const MusicalPage = () => {
           <Reviews
             cardSize={220}
             reviews={musicalReviews}
-            showActions={true}
             setReviews={setMusicalReviews}
             noDataText="There are no reviews for this musical at the moment"
           />
