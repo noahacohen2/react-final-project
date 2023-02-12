@@ -100,10 +100,24 @@ const MusicalsPage = () => {
     });
 
     return musicalsBySearch?.map((musical, index) => (
-      <MusicalCard key={index} musical={musical} />
+      <MusicalCard
+        key={index}
+        musical={musical}
+        setMusicalImg={setMusicalImg}
+      />
     ));
   };
 
+  const setMusicalImg = (musicalId) => {
+    setMusicals(
+      musicals.map((musical) => {
+        if (musical._id == musicalId)
+          musical.MainImageUrl =
+            "https://www.londontheatredirect.com/images/Event/TheLionKing/The-Lion-King-6828.jpg";
+        return musical;
+      })
+    );
+  };
   return (
     <>
       {user && <UpBar />}

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import AppContext from "../../Context/Context";
 
-const MusicalCard = ({ musical }) => {
+const MusicalCard = ({ musical, setMusicalImg }) => {
   const navigate = useNavigate();
   const [currentMusical, setCurrentMusical] =
     useContext(AppContext).currentMusical;
@@ -17,7 +17,13 @@ const MusicalCard = ({ musical }) => {
         navigate("/Musical");
       }}
     >
-      <img id="musical-card-img" src={musical.MainImageUrl} />
+      <img
+        id="musical-card-img"
+        src={musical.MainImageUrl}
+        onError={() => {
+          setMusicalImg(musical._id);
+        }}
+      />
       <span id="musical-card-title">{musical.Name} </span>
       <span>({musical.MinimumAge}+)</span>
       <div className="musical-card-data">{musical.City}</div>

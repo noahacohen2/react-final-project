@@ -30,7 +30,7 @@ const MusicalPage = () => {
   const [user, setUser] = useContext(AppContext).user;
 
   useEffect(() => {
-    if (!currentMusicalId) navigate("/AllMusicals");
+    !currentMusicalId && navigate("/AllMusicals");
 
     const musical = musicals.find((musical) => musical._id == currentMusicalId);
     setCurrMusical(musical);
