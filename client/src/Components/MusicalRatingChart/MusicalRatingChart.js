@@ -8,10 +8,11 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import AppContext from "../../Context/Context";
 import { Bar } from "react-chartjs-2";
 import "./MusicalRatingChart.css";
 import reviewsService from "../../Services/reviews";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 
 ChartJS.register(
   CategoryScale,
@@ -33,6 +34,7 @@ const MusicalRatingChart = ({ musicalEventId }) => {
       },
     ],
   });
+  const [getWebSocket] = useContext(AppContext).WebSocket;
 
   const options = {
     responsive: true,
@@ -45,7 +47,7 @@ const MusicalRatingChart = ({ musicalEventId }) => {
   };
 
   useEffect(() => {
-    if (musicalEventId)
+    const getReviewsStars = () => {
       reviewsService
         .getMusicalReviewsRatingAmount(musicalEventId)
         .then((res) => {
@@ -75,7 +77,13 @@ const MusicalRatingChart = ({ musicalEventId }) => {
         .catch((error) => {
           console.log(error);
         });
-  }, [musicalEventId]);
+    };
+
+    getWebSocket().onmessage = (reviews) => {
+      getReviewsStars();
+    };
+    if (musicalEventId) getReviewsStars();
+  }, [musicalEventId, getWebSocket]);
 
   return <Bar options={options} data={cahrtData} />;
 };

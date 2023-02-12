@@ -21,7 +21,7 @@ const MusicalCard = ({ musical, setMusicalImg }) => {
         id="musical-card-img"
         src={musical.MainImageUrl}
         onError={() => {
-          setMusicalImg(musical._id);
+          // setMusicalImg(musical._id);
         }}
       />
       <span id="musical-card-title">{musical.Name} </span>
