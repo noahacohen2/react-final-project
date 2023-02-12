@@ -4,8 +4,7 @@ import LogInPage from "./Pages/LogInPage/LogInPage";
 import MusicalsPage from "./Pages/MusicalsPage/MusicalsPage";
 import MusicalPage from "./Pages/MusicalPage/MusicalPage";
 import ProfilePage from "./Pages/ProfilePage/ProfilePage";
-import Loader from "./Components/Loader/Loader.js"
-
+import Loader from "./Components/Loader/Loader.js";
 
 const router = createBrowserRouter([
   {
@@ -29,7 +28,7 @@ const router = createBrowserRouter([
 const App = () => {
   return (
     <>
-      <Loader></Loader>
+      <Loader />
       <RouterProvider router={router}></RouterProvider>
     </>
   );

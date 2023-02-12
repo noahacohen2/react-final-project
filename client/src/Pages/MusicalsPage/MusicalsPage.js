@@ -13,13 +13,14 @@ import UpBar from "../../Components/UpBar/UpBar";
 const MusicalsPage = () => {
   const [user, setUser] = useContext(AppContext).user;
   const [musicals, setMusicals] = useContext(AppContext).musicals;
+  const [isLoading, setLoading] = useContext(AppContext).isLoading;
   const [searchValue, setSearchValue] = useState("");
   const [filterArray, setFilterArray] = useState([]);
   const [currFilter, setCurrFilter] = useState([]);
-
   const [isFiltePopupOpen, setIsFiltePopupOpen] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     const setFilterOptionalValues = (filterKey, tempFilter, AllMusicals) => {
       let currFilter = tempFilter.find((fil) => fil.key == filterKey);
       currFilter.optionalValues = [
@@ -48,7 +49,6 @@ const MusicalsPage = () => {
         .getMusicals()
         .then((res) => {
           setMusicals(res.data);
-
           setFilterOptionalValues("City", tempFilter, res.data);
           setFilterOptionalValues("MinimumAge", tempFilter, res.data);
           setFilterOptionalValues("EventMinimumPrice", tempFilter, res.data);
@@ -56,9 +56,11 @@ const MusicalsPage = () => {
         })
         .catch((error) => {
           console.log(error);
+        })
+        .finally(() => {
+          setLoading(false);
         });
     };
-
     getMusicals();
   }, []);
 

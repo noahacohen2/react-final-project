@@ -95,7 +95,7 @@ const UpsertReviewDialog = ({
             className="review-text-field"
             size="small"
             inputRef={seatRef}
-            label={seat}
+            defaultValue={seat}
           />
         </Grid>
         <Grid
@@ -109,7 +109,7 @@ const UpsertReviewDialog = ({
             className="review-text-field"
             size="small"
             inputRef={contentRef}
-            label={content}
+            defaultValue={content}
           />
         </Grid>
         <Grid

@@ -71,14 +71,16 @@ router.get("/:user", (req, res) => {
         Musical: { $arrayElemAt: ["$Musical.Name", 0] },
       },
     },
-  ]).then((reviews) => {
-    res.status(200)
-    res.end(JSON.stringify(reviews));
-  }).catch((e) => {
-    console.log("e", e);
-    res.status(500)
-    res.end();
-  });
+  ])
+    .then((reviews) => {
+      res.status(200);
+      res.end(JSON.stringify(reviews));
+    })
+    .catch((e) => {
+      console.log("e", e);
+      res.status(500);
+      res.end();
+    });
 });
 
 router.delete("/", (req, res) => {
@@ -113,15 +115,19 @@ router.post("/", (req, res) => {
       console.log(e);
       res.end();
     });
+});
+
 router.put("/", (req, res) => {
   let review = req.body;
 
-  Review.updateOne({ _id: ObjectID(review._id) }, { $set: review }).then(() => {
-    res.end()
-  }).catch(e => {
-    console.log(e);
-    res.end();
-  })
+  Review.updateOne({ _id: ObjectID(review._id) }, { $set: review })
+    .then(() => {
+      res.end();
+    })
+    .catch((e) => {
+      console.log(e);
+      res.end();
+    });
 });
 
 module.exports = router;

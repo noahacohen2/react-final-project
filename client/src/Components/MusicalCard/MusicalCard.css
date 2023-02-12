@@ -5,6 +5,7 @@
 
 #musical-card-img {
   width: inherit;
+  cursor: pointer;
 }
 
 #musical-card-title {
