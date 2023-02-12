@@ -1,10 +1,12 @@
 #musical-card {
   width: 200px;
+  height: 215px;
   margin: 30px;
 }
 
 #musical-card-img {
-  width: inherit;
+  width: 200px;
+  height: 140px;
   cursor: pointer;
 }
 
