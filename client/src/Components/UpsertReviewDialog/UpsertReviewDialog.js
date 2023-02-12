@@ -10,6 +10,7 @@ import Grid from "@mui/material/Grid";
 import reviewsService from "../../Services/reviews";
 import AppContext from "../../Context/Context";
 
+
 const UpsertReviewDialog = ({
   mood,
   isOpen,
@@ -19,11 +20,13 @@ const UpsertReviewDialog = ({
   seat = "",
   content = "",
   starsRate = 0,
+  reviewId
 }) => {
   const [user, setUser] = useContext(AppContext).user;
   const seatRef = useRef();
   const contentRef = useRef();
   const [starsValue, setStarsValue] = useState(starsRate);
+  const [getWebSocket] = useContext(AppContext).WebSocket;
 
   useEffect(() => {
     if (mood == "update") {
@@ -42,6 +45,7 @@ const UpsertReviewDialog = ({
         musicalEventId
       )
       .then((res) => {
+        getWebSocket().send(musicalEventId.toString());
         closeDialog();
       })
       .catch((error) => {
@@ -50,8 +54,18 @@ const UpsertReviewDialog = ({
   };
 
   const updateReview = () => {
-    debugger;
-    // TODO
+    reviewsService.updateReview({
+      "_id": reviewId,
+      "Stars": starsValue,
+      "Content": contentRef.current.value || content,
+      "EventId": musicalEventId,
+      "Seat": seatRef.current.value,
+      "User_id": user.localId
+    }).then((res) => {
+      closeDialog();
+    }).catch((error) => {
+      console.log(error);
+    });
   };
 
   return (

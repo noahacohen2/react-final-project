@@ -44,6 +44,7 @@ router.get("/rating/", (req, res) => {
     },
   ])
     .then((reviews) => {
+      console.log(reviews);
       res.end(JSON.stringify(reviews));
     })
     .catch((e) => {
@@ -84,7 +85,7 @@ router.get("/:user", (req, res) => {
 });
 
 router.delete("/", (req, res) => {
-  const review = req.body;
+  let review = req.body;
 
   Review.deleteOne({ _id: ObjectID(review._id) })
     .then(() => {
@@ -129,5 +130,4 @@ router.put("/", (req, res) => {
       res.end();
     });
 });
-
 module.exports = router;
