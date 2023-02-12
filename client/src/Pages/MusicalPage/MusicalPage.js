@@ -1,6 +1,7 @@
 import * as React from "react";
 import AppContext from "../../Context/Context";
 import { useContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import UpBar from "../../Components/UpBar/UpBar";
 import Card from "@mui/material/Card";
 import Divider from "@mui/material/Divider";
@@ -17,6 +18,8 @@ import Button from "@mui/material/Button";
 import UpsertReviewDialog from "../../Components/UpsertReviewDialog/UpsertReviewDialog";
 
 const MusicalPage = () => {
+  const navigate = useNavigate();
+
   const [currentMusicalId, setCurrentMusicalId] =
     useContext(AppContext).currentMusical;
   const [musicals, setMusicals] = useContext(AppContext).musicals;
@@ -27,6 +30,8 @@ const MusicalPage = () => {
   const [user, setUser] = useContext(AppContext).user;
 
   useEffect(() => {
+    if (!currentMusicalId) navigate("/AllMusicals");
+
     const musical = musicals.find((musical) => musical._id == currentMusicalId);
     setCurrMusical(musical);
     reviewsService
