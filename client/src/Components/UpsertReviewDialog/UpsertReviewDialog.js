@@ -19,6 +19,7 @@ const UpsertReviewDialog = ({
   seat = "",
   content = "",
   starsRate = 0,
+  reviewId
 }) => {
   const [user, setUser] = useContext(AppContext).user;
   const seatRef = useRef();
@@ -50,8 +51,18 @@ const UpsertReviewDialog = ({
   };
 
   const updateReview = () => {
-    debugger;
-    // TODO
+    reviewsService.updateReview({
+      "_id": reviewId,
+      "Stars": starsValue,
+      "Content": contentRef.current.value || content,
+      "EventId": musicalEventId,
+      "Seat": seatRef.current.value,
+      "User_id": user.localId
+    }).then((res) => {
+      closeDialog();
+    }).catch((error) => {
+      console.log(error);
+    });
   };
 
   return (

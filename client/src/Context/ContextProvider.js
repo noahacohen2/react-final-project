@@ -9,7 +9,7 @@ const ConetxtProvider = ({ children }) => {
 
   useEffect(() => {
     const getUser = async () => {
-      if (localStorage.getItem("user")) {
+      if (localStorage.getItem("user") != "undefined") {
         return await setUser(JSON.parse(localStorage.getItem("user")));
       }
     };

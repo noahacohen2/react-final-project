@@ -83,4 +83,13 @@ export default {
         console.log(error);
       });
   },
+
+  async updateReview(review) {
+    return await api.put("/reviews", { data: review }).then((res) => {
+      return res;
+    })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 };
