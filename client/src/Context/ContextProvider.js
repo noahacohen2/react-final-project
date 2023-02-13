@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import useWebSocket from 'react-use-websocket';
 
 const WS_URL = 'ws://127.0.0.1:8000';
+// const WS_URL = 'ws://10.100.102.7:8000';
+
 
 const ConetxtProvider = ({ children }) => {
   const [user, setUser] = useState(undefined);

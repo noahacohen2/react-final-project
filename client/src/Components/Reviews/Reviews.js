@@ -79,10 +79,10 @@ const Reviews = ({
   };
 
   const handleUpdateReview = async (review) => {
-    await setUpdatedReview(review)
-    console.log(review)
+    await setUpdatedReview(review);
+    console.log(review);
     setIsUpsertReviewDialogOpen(true);
-  }
+  };
 
   const checkFilterParam = (review) => {
     let isOk = true;
@@ -127,10 +127,12 @@ const Reviews = ({
         )}
         <div className="review-title-filter">
           <div className="reviews-Title">Reviews</div>
-          <FilterAltOutlinedIcon
-            className="review-filter-icon"
-            onClick={openFilterPopup}
-          />
+          {showActions && (
+            <FilterAltOutlinedIcon
+              className="review-filter-icon"
+              onClick={openFilterPopup}
+            />
+          )}
         </div>
         <Divider variant="middle" />
         {filteredReviews()?.length == 0 && (
@@ -157,7 +159,11 @@ const Reviews = ({
                       <>
                         {showActions && (
                           <div className="secondary-action">
-                            <IconButton edge="end" aria-label="update" onClick={() => handleUpdateReview(review)}>
+                            <IconButton
+                              edge="end"
+                              aria-label="update"
+                              onClick={() => handleUpdateReview(review)}
+                            >
                               <EditIcon />
                             </IconButton>
                             <IconButton

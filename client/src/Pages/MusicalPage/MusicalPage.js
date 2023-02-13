@@ -27,9 +27,9 @@ const MusicalPage = () => {
   const [isUpsertReviewDialogOpen, setIsUpsertReviewDialogOpen] =
     useState(false);
   const [musicalReviews, setMusicalReviews] = useState();
+  const [ratingReviews, setRatingReviews] = useState(undefined);
   const [user, setUser] = useContext(AppContext).user;
   const [getWebSocket] = useContext(AppContext).WebSocket;
-
 
   useEffect(() => {
     !currentMusicalId && navigate("/AllMusicals");
@@ -48,9 +48,11 @@ const MusicalPage = () => {
 
   useEffect(() => {
     getWebSocket().onmessage = (reviews) => {
-      setMusicalReviews(JSON.parse(reviews.data))
-    }
-  }, [getWebSocket])
+      const messageData = JSON.parse(reviews.data);
+      setMusicalReviews(messageData.musicalReviews);
+      setRatingReviews(messageData.musicalRating);
+    };
+  }, [getWebSocket]);
 
   return (
     <>
@@ -140,7 +142,10 @@ const MusicalPage = () => {
           alignItems="flex-start"
           id="right-side-card"
         >
-          <MusicalRatingChart musicalEventId={currMusical?.EventId} />
+          <MusicalRatingChart
+            ratingReviews={ratingReviews}
+            musicalEventId={currMusical?.EventId}
+          />
           <Reviews
             cardSize={220}
             reviews={musicalReviews}

@@ -22,7 +22,7 @@ ChartJS.register(
   Legend
 );
 
-const MusicalRatingChart = ({ musicalEventId }) => {
+const MusicalRatingChart = ({ musicalEventId, ratingReviews }) => {
   const [cahrtData, setCahrtData] = useState({
     labels: [],
     datasets: [
@@ -44,38 +44,47 @@ const MusicalRatingChart = ({ musicalEventId }) => {
     },
   };
 
+  const setChartDataFromMessage = (stars) => {
+    console.log("in setChartDataFromMessage, stars is", stars);
+    let amountOfStars = stars;
+    let tempLabels = [];
+    let tempStars = [];
+    amountOfStars.sort((a, b) => {
+      return a._id - b._id;
+    });
+
+    amountOfStars.map((couple) => {
+      tempLabels.push(couple.count);
+      tempStars.push(couple._id);
+    });
+
+    setCahrtData({
+      labels: tempStars,
+      datasets: [
+        {
+          label: "stars",
+          data: tempLabels,
+          backgroundColor: "#F11551",
+        },
+      ],
+    });
+  };
+
   useEffect(() => {
     if (musicalEventId)
       reviewsService
         .getMusicalReviewsRatingAmount(musicalEventId)
         .then((res) => {
-          let amountOfStars = res.data;
-          let tempLabels = [];
-          let tempStars = [];
-          amountOfStars.sort((a, b) => {
-            return a._id - b._id;
-          });
-
-          amountOfStars.map((couple) => {
-            tempLabels.push(couple.count);
-            tempStars.push(couple._id);
-          });
-
-          setCahrtData({
-            labels: tempStars,
-            datasets: [
-              {
-                label: "stars",
-                data: tempLabels,
-                backgroundColor: "#F11551",
-              },
-            ],
-          });
+          setChartDataFromMessage(res.data);
         })
         .catch((error) => {
           console.log(error);
         });
   }, [musicalEventId]);
+
+  useEffect(() => {
+    ratingReviews && setChartDataFromMessage(ratingReviews);
+  }, [ratingReviews]);
 
   return <Bar options={options} data={cahrtData} />;
 };

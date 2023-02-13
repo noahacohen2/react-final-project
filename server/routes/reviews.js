@@ -44,7 +44,6 @@ router.get("/rating/", (req, res) => {
     },
   ])
     .then((reviews) => {
-      console.log(reviews);
       res.end(JSON.stringify(reviews));
     })
     .catch((e) => {
