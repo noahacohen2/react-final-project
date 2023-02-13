@@ -45,6 +45,7 @@ const MusicalRatingChart = ({ musicalEventId, ratingReviews }) => {
   };
 
   const setChartDataFromMessage = (stars) => {
+    console.log("in setChartDataFromMessage, stars is", stars);
     let amountOfStars = stars;
     let tempLabels = [];
     let tempStars = [];
@@ -70,22 +71,19 @@ const MusicalRatingChart = ({ musicalEventId, ratingReviews }) => {
   };
 
   useEffect(() => {
-    reviewsService
-      .getMusicalReviewsRatingAmount(musicalEventId)
-      .then((res) => {
-        setChartDataFromMessage(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (musicalEventId)
+      reviewsService
+        .getMusicalReviewsRatingAmount(musicalEventId)
+        .then((res) => {
+          setChartDataFromMessage(res.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
   }, [musicalEventId]);
 
   useEffect(() => {
-    debugger;
-    if (ratingReviews) {
-      setChartDataFromMessage(ratingReviews);
-      debugger;
-    }
+    ratingReviews && setChartDataFromMessage(ratingReviews);
   }, [ratingReviews]);
 
   return <Bar options={options} data={cahrtData} />;

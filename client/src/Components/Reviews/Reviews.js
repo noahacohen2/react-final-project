@@ -127,10 +127,12 @@ const Reviews = ({
         )}
         <div className="review-title-filter">
           <div className="reviews-Title">Reviews</div>
-          <FilterAltOutlinedIcon
-            className="review-filter-icon"
-            onClick={openFilterPopup}
-          />
+          {showActions && (
+            <FilterAltOutlinedIcon
+              className="review-filter-icon"
+              onClick={openFilterPopup}
+            />
+          )}
         </div>
         <Divider variant="middle" />
         {filteredReviews()?.length == 0 && (
