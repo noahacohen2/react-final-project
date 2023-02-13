@@ -45,35 +45,26 @@ server.listen(port, () => {
 const broadcastReview = async (musicalId) => {
   const musicalReviews = await reviewsBL.getReviewsByMusical(musicalId);
   const musicalRating = await reviewsBL.getReviewRating(musicalId);
-  for (let userId in clients) {
-    let client = clients[userId];
-    client.send(
-      JSON.stringify({
-        musicalReviews,
-        musicalRating,
-      })
-    );
-  }
-};
-
-const handleReview = (musicalId) => {
-  console.log("handleReview", musicalId.toString());
-  broadcastReview(musicalId.toString());
+  wsServer.clients.forEach((client) => {
+    if (client.readyState === WebSocket.OPEN)
+      client.send(
+        JSON.stringify({
+          musicalReviews,
+          musicalRating,
+        })
+      );
+  });
 };
 
 // I'm maintaining all active connections in this object
-const clients = {};
 
 // A new client connection request received
 wsServer.on("connection", function (connection) {
   // Generate a unique code for every user
-  const userId = 1234;
   console.log(`Recieved a new connection.`);
 
   // Store the new connection and handle messages
-  clients[userId] = connection;
-  connection.on("message", (review) => handleReview(review, userId));
-  console.log(`${userId} connected.`);
+  connection.on("message", (review) => broadcastReview(review.toString()));
 });
 
 app.use("/musicals", musicals);
