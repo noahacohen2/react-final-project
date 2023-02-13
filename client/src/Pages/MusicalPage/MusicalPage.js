@@ -30,7 +30,6 @@ const MusicalPage = () => {
   const [user, setUser] = useContext(AppContext).user;
   const [getWebSocket] = useContext(AppContext).WebSocket;
 
-
   useEffect(() => {
     !currentMusicalId && navigate("/AllMusicals");
 
@@ -48,9 +47,9 @@ const MusicalPage = () => {
 
   useEffect(() => {
     getWebSocket().onmessage = (reviews) => {
-      setMusicalReviews(JSON.parse(reviews.data))
-    }
-  }, [getWebSocket])
+      setMusicalReviews(JSON.parse(reviews.data));
+    };
+  }, [getWebSocket]);
 
   return (
     <>
