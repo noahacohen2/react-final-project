@@ -45,7 +45,6 @@ const MusicalRatingChart = ({ musicalEventId, ratingReviews }) => {
   };
 
   const setChartDataFromMessage = (stars) => {
-    console.log("in setChartDataFromMessage, stars is", stars);
     let amountOfStars = stars;
     let tempLabels = [];
     let tempStars = [];

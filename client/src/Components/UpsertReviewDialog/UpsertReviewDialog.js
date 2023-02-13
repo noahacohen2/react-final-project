@@ -33,13 +33,14 @@ const UpsertReviewDialog = ({
     }
   }, [isOpen]);
 
-  const addReview = () => {
+  const addReview = async () => {
+    !starsValue && setStarsValue(0);
     reviewsService
       .addReview(
         musicalName,
         seatRef.current.value,
         contentRef.current.value,
-        starsValue,
+        !starsValue ? 0 : starsValue,
         user.localId,
         musicalEventId
       )
