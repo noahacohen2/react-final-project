@@ -1,0 +1,21 @@
+#musical-card {
+  width: 200px;
+  height: 215px;
+  margin: 30px;
+  cursor: pointer;
+}
+
+#musical-card-img {
+  width: 200px;
+  height: 140px;
+}
+
+#musical-card-title {
+  font-size: medium;
+  font-weight: bold;
+}
+
+.musical-card-data {
+  font-size: medium;
+  font-weight: lighter;
+}

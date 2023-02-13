@@ -8,11 +8,10 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import AppContext from "../../Context/Context";
 import { Bar } from "react-chartjs-2";
 import "./MusicalRatingChart.css";
 import reviewsService from "../../Services/reviews";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 
 ChartJS.register(
   CategoryScale,
@@ -23,7 +22,7 @@ ChartJS.register(
   Legend
 );
 
-const MusicalRatingChart = ({ musicalEventId }) => {
+const MusicalRatingChart = ({ musicalEventId, ratingReviews }) => {
   const [cahrtData, setCahrtData] = useState({
     labels: [],
     datasets: [
@@ -34,7 +33,6 @@ const MusicalRatingChart = ({ musicalEventId }) => {
       },
     ],
   });
-  const [getWebSocket] = useContext(AppContext).WebSocket;
 
   const options = {
     responsive: true,
@@ -46,44 +44,49 @@ const MusicalRatingChart = ({ musicalEventId }) => {
     },
   };
 
+  const setChartDataFromMessage = (stars) => {
+    let amountOfStars = stars;
+    let tempLabels = [];
+    let tempStars = [];
+    amountOfStars.sort((a, b) => {
+      return a._id - b._id;
+    });
+
+    amountOfStars.map((couple) => {
+      tempLabels.push(couple.count);
+      tempStars.push(couple._id);
+    });
+
+    setCahrtData({
+      labels: tempStars,
+      datasets: [
+        {
+          label: "stars",
+          data: tempLabels,
+          backgroundColor: "#F11551",
+        },
+      ],
+    });
+  };
+
   useEffect(() => {
-    const getReviewsStars = () => {
-      reviewsService
-        .getMusicalReviewsRatingAmount(musicalEventId)
-        .then((res) => {
-          let amountOfStars = res.data;
-          let tempLabels = [];
-          let tempStars = [];
-          amountOfStars.sort((a, b) => {
-            return a._id - b._id;
-          });
+    reviewsService
+      .getMusicalReviewsRatingAmount(musicalEventId)
+      .then((res) => {
+        setChartDataFromMessage(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [musicalEventId]);
 
-          amountOfStars.map((couple) => {
-            tempLabels.push(couple.count);
-            tempStars.push(couple._id);
-          });
-
-          setCahrtData({
-            labels: tempStars,
-            datasets: [
-              {
-                label: "stars",
-                data: tempLabels,
-                backgroundColor: "#F11551",
-              },
-            ],
-          });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    };
-
-    getWebSocket().onmessage = (reviews) => {
-      getReviewsStars();
-    };
-    if (musicalEventId) getReviewsStars();
-  }, [musicalEventId, getWebSocket]);
+  useEffect(() => {
+    debugger;
+    if (ratingReviews) {
+      setChartDataFromMessage(ratingReviews);
+      debugger;
+    }
+  }, [ratingReviews]);
 
   return <Bar options={options} data={cahrtData} />;
 };

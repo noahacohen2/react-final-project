@@ -1,0 +1,29 @@
+#musicals-page {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+#center-content {
+  margin-left: 70px;
+  margin-right: 70px;
+}
+
+#musical-page-title {
+  padding-left: 70px;
+}
+
+#actions-area {
+  width: 300px;
+}
+
+#search {
+  margin-top: 40px;
+  width: 250px;
+}
+
+#filter-icon {
+  margin-top: 45px;
+  margin-left: 10px;
+  cursor: pointer;
+}

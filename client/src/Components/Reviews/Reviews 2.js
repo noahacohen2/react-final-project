@@ -79,10 +79,10 @@ const Reviews = ({
   };
 
   const handleUpdateReview = async (review) => {
-    await setUpdatedReview(review);
-    console.log(review);
+    await setUpdatedReview(review)
+    console.log(review)
     setIsUpsertReviewDialogOpen(true);
-  };
+  }
 
   const checkFilterParam = (review) => {
     let isOk = true;
@@ -157,11 +157,7 @@ const Reviews = ({
                       <>
                         {showActions && (
                           <div className="secondary-action">
-                            <IconButton
-                              edge="end"
-                              aria-label="update"
-                              onClick={() => handleUpdateReview(review)}
-                            >
+                            <IconButton edge="end" aria-label="update" onClick={() => handleUpdateReview(review)}>
                               <EditIcon />
                             </IconButton>
                             <IconButton
