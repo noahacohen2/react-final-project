@@ -65,7 +65,7 @@ const UpsertReviewDialog = ({
         User_id: user.localId,
       })
       .then((res) => {
-        closeDialog();
+        closeDialog(true);
       })
       .catch((error) => {
         console.log(error);
@@ -76,7 +76,7 @@ const UpsertReviewDialog = ({
     <Dialog
       onClose={() => {
         setStarsValue(0);
-        closeDialog();
+        closeDialog(false);
       }}
       open={isOpen}
       fullWidth

@@ -5,9 +5,10 @@ import Divider from "@mui/material/Divider";
 import EditIcon from "@mui/icons-material/Edit";
 import ListItem from "@mui/material/ListItem";
 import ReviewRow from "./ReviewRow";
+import AppContext from "../../Context/Context";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import FilterDialog from "../../Components/FilterDialog/FilterDialog.js";
 import reviewsService from "../../Services/reviews.js";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
@@ -20,6 +21,7 @@ const Reviews = ({
   showActions,
   noDataText,
   cardSize,
+  refreshReviews
 }) => {
   const [isFiltePopupOpen, setIsFiltePopupOpen] = useState(false);
   const [filterArray, setFilterArray] = useState([]);
@@ -27,6 +29,8 @@ const Reviews = ({
   const [updatedReview, setUpdatedReview] = useState({});
   const [isUpsertReviewDialogOpen, setIsUpsertReviewDialogOpen] =
     useState(false);
+  const [isLoading, setLoading] = useContext(AppContext).isLoading;
+
 
   let userAvatar = require("../../Assets/olafAvatar.jpg");
   let noDataImg = require("../../Assets/noReviews.png");
@@ -71,16 +75,18 @@ const Reviews = ({
   };
 
   const handleDeleteReview = async (review) => {
+    setLoading(true);
     let isOk = await reviewsService.deleteReview(review);
 
     if (isOk) {
       setReviews(reviews.filter((rev) => rev._id != review._id));
     }
+
+    setLoading(false)
   };
 
   const handleUpdateReview = async (review) => {
     await setUpdatedReview(review);
-    console.log(review);
     setIsUpsertReviewDialogOpen(true);
   };
 
@@ -199,7 +205,10 @@ const Reviews = ({
         content={updatedReview?.Content}
         starsRate={updatedReview?.Stars}
         reviewId={updatedReview?._id}
-        closeDialog={() => {
+        closeDialog={(isUpdated) => {
+          if (isUpdated) {
+            refreshReviews();
+          }
           setIsUpsertReviewDialogOpen(false);
         }}
       />

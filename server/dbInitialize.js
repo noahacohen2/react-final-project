@@ -58,7 +58,6 @@ const initEvents = () => {
                     City: cities[random(cities)]
                 }
             });
-            console.log(dbEvents.length)
             Musical.insertMany(dbEvents)
                 .then(res => {
                     console.log(res)
@@ -89,7 +88,6 @@ const initVenues = () => {
                     "Address": venue.Address
                 }
             });
-            console.log(dbVenues.length)
             Venue.insertMany(dbVenues)
                 .then(res => {
                     console.log(res)

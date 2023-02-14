@@ -18,21 +18,23 @@ const ProfilePage = () => {
   const changeViewState = () => {
     setShowReviews(!showReviews);
   };
-
-  useEffect(() => {
-    setLoading(true);
-    const getReviews = (userID) => {
-      reviewsService.getUserReviews(userID).then((res) => {
+  const getReviews = () => {
+    if (user && user.localId) {
+      reviewsService.getUserReviews(user.localId).then((res) => {
         setUserReviews(res.data);
       }).catch((error) => {
         console.log(error);
       }).finally(() => {
         setLoading(false);
       });
-    };
-    if (user && user.localId) {
-      getReviews(user.localId)
     }
+
+  };
+
+  useEffect(() => {
+    setLoading(true);
+
+    getReviews()
   }, [user]);
 
   return (
@@ -52,6 +54,7 @@ const ProfilePage = () => {
             setReviews={setUserReviews}
             showActions={true}
             noDataText="You're probably new here, & you haven't reviewed any musicals yet"
+            refreshReviews={getReviews}
           ></Reviews>
         )}
         {!showReviews && (

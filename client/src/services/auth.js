@@ -17,7 +17,6 @@ const updateUserName = async (user, name) => {
             if (res.ok) {
                 return await res.json();
             } else {
-                console.log(await res.json())
                 throw new Error('changeNameError');
             }
         })
@@ -40,7 +39,6 @@ export default {
                 if (res.ok) {
                     let user = await res.json();
                     let UserName = await updateUserName(user, userDetails.name)
-                    console.log(UserName)
                     return UserName;
                 } else {
                     throw new Error('signupError');
@@ -85,7 +83,7 @@ export default {
                 if (res.ok) {
                     return await res.json();
                 } else {
-                    console.log(await res.json())
+                    console.log("Error", await res.json())
                     throw new Error('changePasswordError');
                 }
             })

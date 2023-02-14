@@ -118,8 +118,7 @@ router.post("/", (req, res) => {
 });
 
 router.put("/", (req, res) => {
-  let review = req.body;
-
+  let review = req.body.data;
   Review.updateOne({ _id: ObjectID(review._id) }, { $set: review })
     .then(() => {
       res.end();
