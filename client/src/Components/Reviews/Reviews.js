@@ -14,6 +14,7 @@ import reviewsService from "../../Services/reviews.js";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import UpsertReviewDialog from "../../Components/UpsertReviewDialog/UpsertReviewDialog";
+import useFilter from "../../Hooks/filterHook"
 
 const Reviews = ({
   reviews,
@@ -30,44 +31,14 @@ const Reviews = ({
   const [isUpsertReviewDialogOpen, setIsUpsertReviewDialogOpen] =
     useState(false);
   const [isLoading, setLoading] = useContext(AppContext).isLoading;
+  const { buildFilterArray, checkFilterParam } = useFilter("reviews");
 
 
   let userAvatar = require("../../Assets/olafAvatar.jpg");
   let noDataImg = require("../../Assets/noReviews.png");
 
   useEffect(() => {
-    if (reviews) {
-      const setFilterOptionalValues = (filterKey, tempFilter) => {
-        let currFilter = tempFilter.find((fil) => fil.key == filterKey);
-        currFilter.optionalValues = [
-          ...new Set(reviews.map((review) => review[filterKey])),
-        ];
-      };
-
-      let tempFilter = [
-        {
-          key: "Seat",
-          title: "Seat",
-          optionalValues: [],
-        },
-        {
-          key: "Stars",
-          title: "Stars",
-          optionalValues: [],
-        },
-        {
-          key: "Musical",
-          title: "Musical",
-          optionalValues: [],
-        },
-      ];
-
-      setFilterOptionalValues("Seat", tempFilter);
-      setFilterOptionalValues("Stars", tempFilter);
-      setFilterOptionalValues("Musical", tempFilter);
-
-      setFilterArray(tempFilter);
-    }
+    setFilterArray(buildFilterArray(reviews));
   }, [reviews]);
 
   const openFilterPopup = () => {
@@ -90,29 +61,10 @@ const Reviews = ({
     setIsUpsertReviewDialogOpen(true);
   };
 
-  const checkFilterParam = (review) => {
-    let isOk = true;
-    filterArray.forEach((filter) => {
-      let currentFilterValues;
-      if (currFilter.find((curr) => curr.key == filter.key)) {
-        currentFilterValues = currFilter.find(
-          (curr) => curr.key == filter.key
-        ).selectedValues;
-
-        isOk =
-          isOk &&
-          (currentFilterValues.length == 0 ||
-            currentFilterValues.some((value) => value === review[filter.key]));
-      }
-    });
-
-    return isOk;
-  };
-
   const filteredReviews = () => {
     return reviews?.filter((review) => {
       return (
-        (currFilter.length != 0 && checkFilterParam(review)) ||
+        (currFilter.length != 0 && checkFilterParam(review, currFilter)) ||
         currFilter.length == 0
       );
     });
