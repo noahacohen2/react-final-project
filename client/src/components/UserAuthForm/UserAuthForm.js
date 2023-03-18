@@ -110,50 +110,6 @@ const UserAuthForm = ({ isLogin, message, setMessage }) => {
                 </Button>
             </div>
         </div>
-        //   </div >
     );
 };
-//       <div className="cardContainer">
-//     <div className="centerElements">
-//       <div className="textFieldContainer">
-//         <TextField
-//           label="Email"
-//           className="formTextField"
-//           size="small"
-//           fullWidth
-//           inputRef={emailInputRef}
-//         ></TextField>
-//         {!isLogin && (
-//           <TextField
-//             label="Name"
-//             className="formTextField"
-//             size="small"
-//             fullWidth
-//             inputRef={nameInputRef}
-//           ></TextField>
-//         )}
-//         <TextField
-//           label="Password"
-//           className="formTextField"
-//           size="small"
-//           fullWidth
-//           inputRef={passwordInputRef}
-//         ></TextField>
-//       </div>
-//     </div>
-//     <div className="centerElements">
-//       {message != "" && <div className="errorMsg">{message}</div>}
-//     </div>
-//   </div >
-// <div className="centerElements">
-//     <Button
-//         className="submitBtn"
-//         variant="contained"
-//         disableElevation
-//         onClick={clickHandler}
-//     >
-//         {isLogin ? "SIGN IN" : "SIGN UP"}
-//     </Button>
-// </div>
-// </div >
 export default UserAuthForm;

@@ -9,6 +9,7 @@ import Grid from "@mui/material/Grid";
 import "./MusicalsPage.css";
 import FilterDialog from "../../Components/FilterDialog/FilterDialog.js";
 import UpBar from "../../Components/UpBar/UpBar";
+import useFilter from "../../Hooks/filterHook"
 
 const MusicalsPage = () => {
   const [user, setUser] = useContext(AppContext).user;
@@ -18,6 +19,7 @@ const MusicalsPage = () => {
   const [filterArray, setFilterArray] = useState([]);
   const [currFilter, setCurrFilter] = useState([]);
   const [isFiltePopupOpen, setIsFiltePopupOpen] = useState(false);
+  const { buildFilterArray, checkFilterParam } = useFilter("musicals");
 
   useEffect(() => {
     setLoading(true);
@@ -49,10 +51,7 @@ const MusicalsPage = () => {
         .getMusicals()
         .then((res) => {
           setMusicals(res.data);
-          setFilterOptionalValues("City", tempFilter, res.data);
-          setFilterOptionalValues("MinimumAge", tempFilter, res.data);
-          setFilterOptionalValues("EventMinimumPrice", tempFilter, res.data);
-          setFilterArray(tempFilter);
+          setFilterArray(buildFilterArray(res.data));
         })
         .catch((error) => {
           console.log(error);
@@ -68,29 +67,10 @@ const MusicalsPage = () => {
     setIsFiltePopupOpen(true);
   };
 
-  const checkFilterParam = (musical) => {
-    let isOk = true;
-    filterArray.forEach((filter) => {
-      let currentFilterValues;
-      if (currFilter.find((curr) => curr.key == filter.key)) {
-        currentFilterValues = currFilter.find(
-          (curr) => curr.key == filter.key
-        ).selectedValues;
-
-        isOk =
-          isOk &&
-          (currentFilterValues.length == 0 ||
-            currentFilterValues.some((value) => value === musical[filter.key]));
-      }
-    });
-
-    return isOk;
-  };
-
   const Musicals = () => {
     const musicalsBySearch = musicals.filter((musical) => {
       if (
-        (currFilter.length != 0 && checkFilterParam(musical)) ||
+        (currFilter.length != 0 && checkFilterParam(musical, currFilter)) ||
         currFilter.length == 0
       ) {
         if (musical.Name.toLowerCase().includes(searchValue.toLowerCase())) {
